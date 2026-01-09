@@ -1,0 +1,35 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Paleta de colores de Pesquera NEYMAR */
+  --color-primary: #38bdf8; /* Azul principal */
+  --color-primary-dark: #0ea5e9; /* Azul oscuro */
+  --color-secondary: #2dd4bf; /* Teal */
+  --color-accent: #fb923c; /* Naranja */
+
+  /* Colores neutros */
+  --color-background-light: #f8fafc;
+  --color-text-light: #0f172a;
+  --color-text-secondary-light: #475569;
+  --color-sand: #fef3c7;
+
+  /* Tipografía */
+  --font-display: Montserrat, sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-background-light);
+    color: var(--color-text-light);
+  }
+}
