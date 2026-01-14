@@ -6,6 +6,10 @@
   --color-primary-dark: #0ea5e9; /* Azul oscuro */
   --color-secondary: #2dd4bf; /* Teal */
   --color-accent: #fb923c; /* Naranja */
+  /* Colores Originales NEYMAR */
+  --color-neymar-blue: #003366;
+  --color-neymar-orange: #ffa45b;
+  --color-white: #ffffff;
 
   /* Colores neutros */
   --color-background-light: #f8fafc;

@@ -1,23 +1,19 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from '../header/header';
-import { SvgIconComponent } from '../../icons/svg-icon.component';
+import { Footer } from "../footer/footer";
 
 @Component({
   selector: 'app-layout',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, Header, SvgIconComponent],
+  imports: [RouterOutlet, Header, Footer],
   template: `
     <app-header></app-header>
-    <main class="container mx-auto px-4 pt-24 min-h-screen">
+    <main class="container mx-auto px-4 pt-24 min-h-full">
       <router-outlet></router-outlet>
-      <app-svg-icon
-        icon="integrationInstructions"
-        size="28px"
-        ariaLabel="Integration instructions"
-      ></app-svg-icon>
     </main>
+    <app-footer></app-footer>
   `,
 })
 export class LayoutComponent {}
