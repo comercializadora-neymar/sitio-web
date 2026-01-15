@@ -21,9 +21,9 @@ export const APP_SHARED_INFO = {
     phoneStringSecondary: '(+57) 300 357 1923',
     phoneSecondary: '+573003571923',
     email: 'contacto@comercializadora-neymar.com',
-    location: 'AVENIDA LA CANDELARIA VIA A YATI Cra. 3 #20-29, Magangué.',
+    location: 'Avenida la Candelaria, Cra. 3 #20-29, Magangué, via a yati.',
   },
-  schedules: ['Lunes – Sábado: 7am – 5pm', 'Domingo: 9am – 12pmn'],
+  schedules: ['Lunes – Sábado: 7am – 5pm', 'Domingo: 9am – 12pm'],
   navItems: [
     {
       title: 'Inicio',
