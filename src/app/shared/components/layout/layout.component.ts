@@ -10,7 +10,7 @@ import { Footer } from "../footer/footer";
   imports: [RouterOutlet, Header, Footer],
   template: `
     <app-header></app-header>
-    <main class="container mx-auto px-4 pt-24 min-h-full">
+    <main>
       <router-outlet></router-outlet>
     </main>
     <app-footer></app-footer>
