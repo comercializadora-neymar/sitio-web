@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  AfterViewInit,
+  signal,
+  inject,
+  PLATFORM_ID,
+} from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 
 @Component({
@@ -21,30 +30,45 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
       }
 
       .fade-in-up {
-        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.8s ease-out,
+          transform 0.8s ease-out;
       }
 
-      .fade-in-up.delay-1 {
-        animation-delay: 0.2s;
+      .fade-in-up.animate {
+        opacity: 1;
+        transform: translateY(0);
       }
-      .fade-in-up.delay-2 {
-        animation-delay: 0.4s;
+
+      .fade-in-up.delay-1.animate {
+        transition-delay: 0.2s;
       }
-      .fade-in-up.delay-3 {
-        animation-delay: 0.6s;
+      .fade-in-up.delay-2.animate {
+        transition-delay: 0.4s;
       }
-      .fade-in-up.delay-4 {
-        animation-delay: 0.8s;
+      .fade-in-up.delay-3.animate {
+        transition-delay: 0.6s;
+      }
+      .fade-in-up.delay-4.animate {
+        transition-delay: 0.8s;
       }
     `,
   ],
   template: `
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mx-auto fade-in-up">
+        <h2
+          class="text-3xl md:text-4xl font-bold text-gray-900 text-center mx-auto fade-in-up"
+          [class.animate]="isVisible()"
+        >
           Sobre Comercializadora Neymar
         </h2>
-        <p class="text-lg text-gray-600 text-center mt-2 max-w-md mx-auto fade-in-up delay-1">
+        <p
+          class="text-lg text-gray-600 text-center mt-2 max-w-md mx-auto fade-in-up delay-1"
+          [class.animate]="isVisible()"
+        >
           Somos una empresa familiar con décadas de tradición en la comercialización de pescado
           ribereño fresco del río Magdalena.
         </p>
@@ -61,8 +85,9 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
             height="844"
             priority
             class="max-w-sm w-full rounded-xl h-auto fade-in-up delay-2"
+            [class.animate]="isVisible()"
           />
-          <div class="flex-1 fade-in-up delay-3">
+          <div class="flex-1 fade-in-up delay-3" [class.animate]="isVisible()">
             <h3 class="text-2xl font-semibold">Nuestros Compromisos</h3>
             <p class="text-sm text-slate-500 mt-2">
               Nuestro compromiso es con la calidad, la sostenibilidad y el apoyo a las comunidades
@@ -70,7 +95,7 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
             </p>
 
             <div class="flex flex-col gap-6 mt-6">
-              <div class="flex items-center gap-4 fade-in-up delay-4">
+              <div class="flex items-center gap-4 fade-in-up delay-4" [class.animate]="isVisible()">
                 <div class="size-10 p-2 bg-indigo-50 border border-indigo-200 rounded shrink-0">
                   <app-svg-icon icon="verified" class="text-neymar-blue" size="24px"></app-svg-icon>
                 </div>
@@ -82,7 +107,7 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
                   </p>
                 </div>
               </div>
-              <div class="flex items-center gap-4 fade-in-up delay-1">
+              <div class="flex items-center gap-4 fade-in-up delay-1" [class.animate]="isVisible()">
                 <div
                   class="size-10 p-2 bg-indigo-50 border border-indigo-200 rounded flex-shrink-0"
                 >
@@ -98,7 +123,7 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
                   </p>
                 </div>
               </div>
-              <div class="flex items-center gap-4 fade-in-up delay-2">
+              <div class="flex items-center gap-4 fade-in-up delay-2" [class.animate]="isVisible()">
                 <div
                   class="size-10 p-2 bg-indigo-50 border border-indigo-200 rounded flex-shrink-0"
                 >
@@ -121,4 +146,27 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
     </section>
   `,
 })
-export class About {}
+export class About implements AfterViewInit {
+  isVisible = signal(false);
+
+  private el = inject(ElementRef);
+  private platformId = inject(PLATFORM_ID);
+
+  ngAfterViewInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.isVisible.set(true);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      observer.observe(this.el.nativeElement);
+    }
+  }
+}
