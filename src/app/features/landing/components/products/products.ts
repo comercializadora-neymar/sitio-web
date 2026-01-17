@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.directive';
 
 interface Product {
   name: string;
@@ -15,7 +16,7 @@ interface Product {
   selector: 'app-products',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule],
+  imports: [CommonModule, FadeInUpDirective],
   styles: [
     `
       .marquee-inner {
@@ -33,7 +34,7 @@ interface Product {
     `,
   ],
   template: `
-    <section class="py-16 bg-gray-50">
+    <section class="py-16 bg-gray-50" appFadeInUp>
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
