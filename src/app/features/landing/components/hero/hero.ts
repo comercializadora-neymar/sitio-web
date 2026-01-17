@@ -12,10 +12,11 @@ import { NgOptimizedImage } from '@angular/common';
     >
       <div class="absolute inset-0 z-0">
         <img
-          ngSrc="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1920&q=80"
+          ngSrc="https://placehold.co/800x1200/FFA500/FFFFFF?text=Hero+Image+-+Atardecer+sobre+el+río+Magdalena"
           alt="Atardecer sobre el río Magdalena"
-          width="1920"
-          height="1080"
+          width="800"
+          height="1200"
+          priority
           class="w-full h-full object-cover"
         />
         <div class="absolute inset-0 hero-overlay"></div>

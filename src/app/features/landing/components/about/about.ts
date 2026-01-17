@@ -10,8 +10,10 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
   template: `
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
-        <h1 class="text-3xl font-semibold text-center mx-auto">Sobre Comercializadora Neymar</h1>
-        <p class="text-sm text-slate-500 text-center mt-2 max-w-md mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mx-auto">
+          Sobre Comercializadora Neymar
+        </h2>
+        <p class="text-lg text-gray-600 text-center mt-2 max-w-md mx-auto">
           Somos una empresa familiar con décadas de tradición en la comercialización de pescado
           ribereño fresco del río Magdalena.
         </p>
@@ -22,14 +24,15 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
             class="size-[520px] rounded-full absolute blur-[300px] -z-10 bg-[#FBFFE1] left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
           ></div>
           <img
-            ngSrc="https://images.unsplash.com/photo-1555212697-194d092e3b8f?q=80&w=830&h=844&auto=format&fit=crop"
+            ngSrc="https://placehold.co/830x844/32CD32/FFFFFF?text=Productos+frescos+del+río"
             alt="Productos frescos del río"
             width="830"
             height="844"
+            priority
             class="max-w-sm w-full rounded-xl h-auto"
           />
           <div class="flex-1">
-            <h2 class="text-3xl font-semibold">Nuestros Compromisos</h2>
+            <h3 class="text-2xl font-semibold">Nuestros Compromisos</h3>
             <p class="text-sm text-slate-500 mt-2">
               Nuestro compromiso es con la calidad, la sostenibilidad y el apoyo a las comunidades
               de pescadores locales en Magangué, corazón de la pesca en Colombia.
