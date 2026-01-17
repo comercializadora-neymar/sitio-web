@@ -7,13 +7,44 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgOptimizedImage, SvgIconComponent],
+  styles: [
+    `
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+
+      .fade-in-up.delay-1 {
+        animation-delay: 0.2s;
+      }
+      .fade-in-up.delay-2 {
+        animation-delay: 0.4s;
+      }
+      .fade-in-up.delay-3 {
+        animation-delay: 0.6s;
+      }
+      .fade-in-up.delay-4 {
+        animation-delay: 0.8s;
+      }
+    `,
+  ],
   template: `
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mx-auto fade-in-up">
           Sobre Comercializadora Neymar
         </h2>
-        <p class="text-lg text-gray-600 text-center mt-2 max-w-md mx-auto">
+        <p class="text-lg text-gray-600 text-center mt-2 max-w-md mx-auto fade-in-up delay-1">
           Somos una empresa familiar con décadas de tradición en la comercialización de pescado
           ribereño fresco del río Magdalena.
         </p>
@@ -29,9 +60,9 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
             width="830"
             height="844"
             priority
-            class="max-w-sm w-full rounded-xl h-auto"
+            class="max-w-sm w-full rounded-xl h-auto fade-in-up delay-2"
           />
-          <div class="flex-1">
+          <div class="flex-1 fade-in-up delay-3">
             <h3 class="text-2xl font-semibold">Nuestros Compromisos</h3>
             <p class="text-sm text-slate-500 mt-2">
               Nuestro compromiso es con la calidad, la sostenibilidad y el apoyo a las comunidades
@@ -39,7 +70,7 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
             </p>
 
             <div class="flex flex-col gap-6 mt-6">
-              <div class="flex items-center gap-4">
+              <div class="flex items-center gap-4 fade-in-up delay-4">
                 <div class="size-10 p-2 bg-indigo-50 border border-indigo-200 rounded shrink-0">
                   <app-svg-icon icon="verified" class="text-neymar-blue" size="24px"></app-svg-icon>
                 </div>
@@ -51,7 +82,7 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
                   </p>
                 </div>
               </div>
-              <div class="flex items-center gap-4">
+              <div class="flex items-center gap-4 fade-in-up delay-1">
                 <div
                   class="size-10 p-2 bg-indigo-50 border border-indigo-200 rounded flex-shrink-0"
                 >
@@ -67,7 +98,7 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
                   </p>
                 </div>
               </div>
-              <div class="flex items-center gap-4">
+              <div class="flex items-center gap-4 fade-in-up delay-2">
                 <div
                   class="size-10 p-2 bg-indigo-50 border border-indigo-200 rounded flex-shrink-0"
                 >
