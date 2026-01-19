@@ -34,13 +34,13 @@ interface Product {
     `,
   ],
   template: `
-    <section class="py-16 bg-gray-50" appFadeInUp>
+    <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" appFadeInUp>
             Nuestro Pescado Fresco: Bagre, Bocachico y más
           </h2>
-          <p class="text-lg text-gray-600">
+          <p class="text-lg text-gray-600" appFadeInUp [delay]="100">
             Descubre nuestra selección de pescados frescos de río, capturados con cuidado para
             garantizar la mejor calidad.
           </p>
@@ -52,7 +52,7 @@ interface Product {
           (mouseleave)="resumeMarquee()"
         >
           <div
-            class="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-linear-to-r from-gray-50 to-transparent"
+            class="absolute left-0 top-0 h-full w-8 md:w-20 z-10 pointer-events-none bg-linear-to-r from-gray-50 to-transparent"
           ></div>
           <div
             class="marquee-inner flex w-fit"
@@ -151,7 +151,7 @@ interface Product {
             </div>
           </div>
           <div
-            class="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-lienar-to-l from-gray-50 to-transparent"
+            class="absolute right-0 top-0 h-full w-8 md:w-40 z-10 pointer-events-none bg-linear-to-l from-gray-50 to-transparent"
           ></div>
         </div>
       </div>

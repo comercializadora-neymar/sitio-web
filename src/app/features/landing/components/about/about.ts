@@ -13,14 +13,15 @@ import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.dire
     <section class="py-16 bg-white overflow-hidden">
       <div class="container mx-auto px-4">
         <h2
-          class="text-3xl md:text-4xl font-bold text-gray-900 text-center mx-auto fade-in-up"
+          class="text-3xl md:text-4xl font-bold text-gray-900 text-center mx-auto"
           appFadeInUp
         >
           Sobre Comercializadora Neymar
         </h2>
         <p
-          class="text-lg text-gray-600 text-center mt-2 max-w-md mx-auto fade-in-up delay-1"
+          class="text-lg text-gray-600 text-center mt-2 max-w-md mx-auto"
           appFadeInUp
+          [delay]="100"
         >
           Somos una empresa familiar con décadas de tradición en la comercialización de pescado
           ribereño fresco del río Magdalena.
@@ -37,10 +38,11 @@ import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.dire
             width="830"
             height="844"
             priority
-            class="max-w-sm w-full rounded-xl h-auto fade-in-up delay-2"
+            class="max-w-sm w-full rounded-xl h-auto"
             appFadeInUp
+            [delay]="200"
           />
-          <div class="flex-1 fade-in-up delay-3" appFadeInUp>
+          <div class="flex-1" appFadeInUp [delay]="300">
             <h3 class="text-2xl font-semibold">Nuestros Compromisos</h3>
             <p class="text-sm text-slate-500 mt-2">
               Nuestro compromiso es con la calidad, la sostenibilidad y el apoyo a las comunidades
@@ -48,7 +50,7 @@ import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.dire
             </p>
 
             <div class="flex flex-col gap-6 mt-6">
-              <div class="flex items-center gap-4 fade-in-up delay-4" appFadeInUp>
+              <div class="flex items-center gap-4" appFadeInUp [delay]="400">
                 <div class="size-10 p-2 bg-indigo-50 border border-indigo-200 rounded shrink-0">
                   <app-svg-icon icon="verified" class="text-neymar-blue" size="24px"></app-svg-icon>
                 </div>
@@ -60,7 +62,7 @@ import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.dire
                   </p>
                 </div>
               </div>
-              <div class="flex items-center gap-4 fade-in-up delay-1" appFadeInUp>
+              <div class="flex items-center gap-4" appFadeInUp [delay]="500">
                 <div
                   class="size-10 p-2 bg-indigo-50 border border-indigo-200 rounded flex-shrink-0"
                 >
@@ -76,7 +78,7 @@ import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.dire
                   </p>
                 </div>
               </div>
-              <div class="flex items-center gap-4 fade-in-up delay-2" appFadeInUp>
+              <div class="flex items-center gap-4" appFadeInUp [delay]="600">
                 <div
                   class="size-10 p-2 bg-indigo-50 border border-indigo-200 rounded flex-shrink-0"
                 >
