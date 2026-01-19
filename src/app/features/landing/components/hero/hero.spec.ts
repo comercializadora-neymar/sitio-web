@@ -26,12 +26,12 @@ describe('Hero', () => {
     expect(compiled.querySelector('section')).toBeTruthy();
   });
 
-  it('should render image with ngSrc', () => {
+  it('should render image with correct src and alt', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const img = compiled.querySelector('img');
     expect(img).toBeTruthy();
-    expect(img?.getAttribute('ngSrc')).toBeTruthy();
+    expect(img?.getAttribute('src')).toBeTruthy();
     expect(img?.getAttribute('alt')).toBe('Atardecer sobre el río Magdalena');
   });
 

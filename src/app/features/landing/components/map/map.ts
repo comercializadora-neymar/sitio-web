@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.directive';
+import { APP_SHARED_INFO } from '../../../../core/config/app-info';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-map',
@@ -12,7 +14,7 @@ import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.dire
       appFadeInUp
     >
       <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126432.6105740445!2d-74.82194537703358!3d9.242095989262867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e5f9a6e30026335%3A0xc3f1f3e72dc0637!2sMagangu%C3%A9%2C%20Bol%C3%ADvar!5e0!3m2!1ses!2sco!4v1705680000000!5m2!1ses!2sco" 
+        [src]="safeMapUrl"
         width="100%" 
         height="100%" 
         style="border:0;" 
@@ -24,4 +26,8 @@ import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.dire
     </section>
   `
 })
-export class MapComponent {}
+export class MapComponent {
+  private sanitizer = inject(DomSanitizer);
+  readonly mapData = APP_SHARED_INFO.landing.map;
+  readonly safeMapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapData.embedUrl);
+}

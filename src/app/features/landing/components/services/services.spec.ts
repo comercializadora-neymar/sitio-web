@@ -1,10 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Services } from './services';
 
-import { About } from './about';
-
-describe('About', () => {
-  let component: About;
-  let fixture: ComponentFixture<About>;
+describe('Services', () => {
+  let component: Services;
+  let fixture: ComponentFixture<Services>;
 
   beforeAll(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,10 +19,10 @@ describe('About', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [About],
+      imports: [Services],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(About);
+    fixture = TestBed.createComponent(Services);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -38,17 +37,21 @@ describe('About', () => {
     expect(compiled.querySelector('section')).toBeTruthy();
   });
 
-  it('should render title', () => {
+  it('should render title from app-info', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.textContent).toContain('Sobre Comercializadora Neymar');
+    expect(compiled.textContent).toContain('Nuestros Servicios');
   });
 
-  it('should render image with correct alt text', () => {
+  it('should render all service cards', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const img = compiled.querySelector('img');
-    expect(img).toBeTruthy();
-    expect(img?.getAttribute('alt')).toBe('Productos frescos del río');
+    const serviceCards = compiled.querySelectorAll('.flex.flex-col.text-center');
+    expect(serviceCards.length).toBe(component.servicesData.items.length);
+  });
+
+  it('should use data from app-info', () => {
+    expect(component.servicesData).toBeTruthy();
+    expect(component.servicesData.items.length).toBeGreaterThan(0);
   });
 });

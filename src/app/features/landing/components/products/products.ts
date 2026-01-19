@@ -1,16 +1,8 @@
 import { ChangeDetectionStrategy, Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.directive';
-
-interface Product {
-  name: string;
-  description: string;
-  image: string;
-  weight: string;
-  season: string;
-  price: number;
-  availability: string;
-}
+import { APP_SHARED_INFO } from '../../../../core/config/app-info';
+import type { Product } from '../../../../core/models/product.model';
 
 @Component({
   selector: 'app-products',
@@ -38,11 +30,10 @@ interface Product {
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" appFadeInUp>
-            Nuestro Pescado Fresco: Bagre, Bocachico y más
+            {{ productsData.title }}
           </h2>
           <p class="text-lg text-gray-600" appFadeInUp [delay]="100">
-            Descubre nuestra selección de pescados frescos de río, capturados con cuidado para
-            garantizar la mejor calidad.
+            {{productsData.description}}
           </p>
         </div>
 
@@ -81,7 +72,7 @@ interface Product {
                       class="absolute w-full h-full [backface-visibility:hidden] rounded-xl overflow-hidden shadow-lg bg-white border border-gray-100"
                     >
                       <img
-                        [src]="product.image || defaultImage"
+                        [src]="product.image || productsData.defaultImage"
                         alt="{{ product.name }}"
                         class="w-full h-64 object-cover"
                         (error)="onImageError($event)"
@@ -106,7 +97,7 @@ interface Product {
                       <div class="flex items-center gap-3 border-b border-gray-100 pb-3 mb-3">
                          <div class="size-10 rounded-full overflow-hidden border border-gray-200 shrink-0">
                              <img
-                              [src]="product.image || defaultImage"
+                              [src]="product.image || productsData.defaultImage"
                               alt="Miniatura de {{ product.name }}"
                               class="w-full h-full object-cover"
                              />
@@ -136,7 +127,7 @@ interface Product {
                       <!-- Footer / CTA -->
                       <div class="mt-3 pt-2 border-t border-gray-100">
                            <a
-                            href="https://wa.me/1234567890?text=Quiero%20comprar%20{{ product.name }}"
+                            [href]="whatsappLink(product.name)"
                             target="_blank"
                             (click)="$event.stopPropagation()"
                             class="w-full block text-center bg-[#25D366] hover:bg-[#128C7E] text-white py-2 rounded-lg text-sm font-bold transition-colors"
@@ -159,101 +150,10 @@ interface Product {
   `,
 })
 export class Products {
-  products = signal<Product[]>([
-    {
-      name: 'Bagre',
-      description: 'Pescado de río de carne blanca y suave, ideal para freír o sudar.',
-      image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Bagre',
-      weight: 'Menos de 0.5 kg',
-      season: 'Todo el año',
-      price: 100,
-      availability: 'Baja',
-    },
-    {
-      name: 'Bocachico',
-      description: 'Pescado de río, de sabor intenso y textura firme, perfecto para asar.',
-      image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Bocachico',
-      weight: 'Menos de 0.5 kg',
-      season: 'Todo el año',
-      price: 200,
-      availability: 'Baja',
-    },
-    {
-      name: 'Mojarra',
-      description: 'Pescado de río, versátil y delicioso, ideal para freír entera o en filetes.',
-      image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Mojarra',
-      weight: 'Menos de 0.5 kg',
-      season: 'Todo el año',
-      price: 300,
-      availability: 'Baja',
-    },
-    {
-      name: 'Capaz',
-      description: 'Pescado de río con carne firme y sabrosa, excelente para sopas y guisos.',
-      image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Capaz',
-      weight: 'Menos de 0.5 kg',
-      season: 'Todo el año',
-      price: 150,
-      availability: 'Media',
-    },
-    {
-      name: 'Sabaleta',
-      description: 'Pescado pequeño y delicioso, ideal para frituras y ceviches.',
-      image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Sabaleta',
-      weight: 'Menos de 0.5 kg',
-      season: 'Todo el año',
-      price: 120,
-      availability: 'Alta',
-    },
-    {
-      name: 'Blanquillo',
-      description: 'Pescado de río con carne blanca y suave, perfecto para preparaciones ligeras.',
-      image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Blanquillo',
-      weight: 'Menos de 0.5 kg',
-      season: 'Todo el año',
-      price: 180,
-      availability: 'Media',
-    },
-    {
-      name: 'Carpa',
-      description: 'Pescado de agua dulce, de carne firme y con bajo contenido de grasa.',
-      image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Carpa',
-      weight: 'Menos de 0.5 kg',
-      season: 'Todo el año',
-      price: 140,
-      availability: 'Baja',
-    },
-    {
-      name: 'Tilapia',
-      description:
-        'Pescado criado en criaderos, versátil y de bajo costo, ideal para diversas preparaciones.',
-      image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Tilapia',
-      weight: 'Menos de 0.5 kg',
-      season: 'Todo el año',
-      price: 110,
-      availability: 'Alta',
-    },
-    {
-      name: 'Nicuro',
-      description: 'Pescado de río pequeño, con sabor delicado, perfecto para comidas ligeras.',
-      image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Nicuro',
-      weight: 'Menos de 0.5 kg',
-      season: 'Todo el año',
-      price: 160,
-      availability: 'Media',
-    },
-    {
-      name: 'Doncella',
-      description: 'Pescado de río con carne tierna, excelente para asados y parrillas.',
-      image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Doncella',
-      weight: 'Menos de 0.5 kg',
-      season: 'Todo el año',
-      price: 190,
-      availability: 'Baja',
-    },
-  ]);
-
-  defaultImage = 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Default';
+  readonly productsData = APP_SHARED_INFO.landing.products;
+  readonly whatsappConfig = APP_SHARED_INFO.whatsapp;
+  
+  products = signal<Product[]>(this.productsData.items);
 
   doubledProducts = computed(() => [...this.products(), ...this.products()]);
 
@@ -292,6 +192,11 @@ export class Products {
 
   onImageError(event: Event) {
     const img = event.target as HTMLImageElement;
-    img.src = this.defaultImage;
+    img.src = this.productsData.defaultImage;
+  }
+
+  whatsappLink(productName: string): string {
+    const message = this.whatsappConfig.message(productName);
+    return `https://wa.me/${this.whatsappConfig.phoneNumber}?text=${message}`;
   }
 }
