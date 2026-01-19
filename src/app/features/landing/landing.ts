@@ -4,6 +4,7 @@ import { About } from './components/about/about';
 import { Products } from './components/products/products';
 import { Services } from './components/services/services';
 import { MapComponent } from './components/map/map';
+import { Faq } from './components/faq/faq';
 import { SeoService } from '../../core/services/seo';
 import { APP_SHARED_INFO } from '../../core/config/app-info';
 
@@ -11,9 +12,9 @@ import { APP_SHARED_INFO } from '../../core/config/app-info';
   selector: 'app-landing',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Hero, About, Products, Services, MapComponent],
+  imports: [Hero, About, Products, Services, MapComponent, Faq],
   template: `
-    <app-hero id="inicio"></app-hero>
+    <app-hero></app-hero>
     <div class="grid grid-cols-1 2xl:grid-cols-2 gap-8">
       <div class="order-2 2xl:order-1" id="nosotros">
         <app-about></app-about>
@@ -23,6 +24,7 @@ import { APP_SHARED_INFO } from '../../core/config/app-info';
       </div>
     </div>
     <app-services id="servicios"></app-services>
+    <app-faq id="faq"></app-faq>
     <app-map id="ubicacion"></app-map>
   `,
 })
