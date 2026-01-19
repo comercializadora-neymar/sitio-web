@@ -6,6 +6,18 @@ describe('Landing', () => {
   let component: Landing;
   let fixture: ComponentFixture<Landing>;
 
+  beforeAll(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).IntersectionObserver = class {
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      observe() {}
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      unobserve() {}
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      disconnect() {}
+    };
+  });
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Landing],

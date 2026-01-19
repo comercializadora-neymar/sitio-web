@@ -10,7 +10,7 @@ import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.dire
   imports: [NgOptimizedImage, SvgIconComponent, FadeInUpDirective],
 
   template: `
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-white overflow-hidden">
       <div class="container mx-auto px-4">
         <h2
           class="text-3xl md:text-4xl font-bold text-gray-900 text-center mx-auto fade-in-up"

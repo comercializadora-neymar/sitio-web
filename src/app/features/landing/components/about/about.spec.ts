@@ -6,6 +6,18 @@ describe('About', () => {
   let component: About;
   let fixture: ComponentFixture<About>;
 
+  beforeAll(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).IntersectionObserver = class {
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      observe() {}
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      unobserve() {}
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      disconnect() {}
+    };
+  });
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [About],

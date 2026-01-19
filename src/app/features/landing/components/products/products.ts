@@ -59,31 +59,91 @@ interface Product {
             [style.animation-play-state]="paused() ? 'paused' : 'running'"
             [style.animation-duration]="doubledProducts().length * 2500 + 'ms'"
           >
-            <div class="flex">
+            <div
+              class="flex transition-transform duration-300 ease-out will-change-transform"
+              [style.transform]="'translateX(' + centerOffset() + 'px)'"
+            >
               @for (product of doubledProducts(); track $index) {
                 <div
-                  class="w-56 mx-4 h-80 relative group hover:scale-90 transition-all duration-300 cursor-pointer"
+                  class="group w-64 h-80 mx-4 [perspective:1000px] cursor-pointer select-none"
+                  (click)="toggleFlip($index, $event)"
+                  (keydown.enter)="toggleFlip($index, $event)"
+                  (keydown.space)="toggleFlip($index, $event)"
+                  tabindex="0"
+                  role="button"
                 >
-                  <img
-                    [src]="product.image || defaultImage"
-                    alt="{{ product.name }}"
-                    class="w-full h-full object-cover rounded-md"
-                    (error)="onImageError($event)"
-                  />
                   <div
-                    class="flex items-center justify-center px-4 opacity-0 group-hover:opacity-100 transition-all duration-300 absolute bottom-0 backdrop-blur-md left-0 w-full h-full bg-black/20 rounded-md"
+                    class="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
+                    [class.[transform:rotateY(180deg)]]="activeProductIndex() === $index"
                   >
-                    <div class="text-center text-white">
-                      <p class="text-lg font-semibold mb-2">{{ product.name }}</p>
-                      <p class="text-sm mb-2">{{ product.description }}</p>
-                      <p class="text-sm mb-4">Precio: {{ '$' + product.price }}/kg</p>
-                      <a
-                        href="https://wa.me/1234567890?text=Quiero%20comprar%20{{ product.name }}"
-                        target="_blank"
-                        class="bg-[#25D366] hover:bg-[#128C7E] text-white px-4 py-2 rounded-lg text-sm inline-block font-medium"
-                      >
-                        Comprar por WhatsApp
-                      </a>
+                    <!-- Front Side -->
+                    <div
+                      class="absolute w-full h-full [backface-visibility:hidden] rounded-xl overflow-hidden shadow-lg bg-white border border-gray-100"
+                    >
+                      <img
+                        [src]="product.image || defaultImage"
+                        alt="{{ product.name }}"
+                        class="w-full h-64 object-cover"
+                        (error)="onImageError($event)"
+                      />
+                      <div class="p-4 flex flex-col justify-between h-16 bg-white">
+                        <div class="flex justify-between items-center">
+                          <h3 class="font-bold text-gray-800 text-lg leading-tight">
+                            {{ product.name }}
+                          </h3>
+                          <span class="text-sm font-semibold text-neymar-blue bg-blue-50 px-2 py-1 rounded">
+                            {{ '$' + product.price }}/kg
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Back Side -->
+                    <div
+                      class="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl shadow-lg bg-white border border-gray-200 p-4 flex flex-col"
+                    >
+                      <!-- Header -->
+                      <div class="flex items-center gap-3 border-b border-gray-100 pb-3 mb-3">
+                         <div class="size-10 rounded-full overflow-hidden border border-gray-200 shrink-0">
+                             <img
+                              [src]="product.image || defaultImage"
+                              alt="Miniatura de {{ product.name }}"
+                              class="w-full h-full object-cover"
+                             />
+                         </div>
+                         <div>
+                             <h3 class="font-bold text-gray-800 text-sm">{{ product.name }}</h3>
+                             <p class="text-xs text-gray-500">Pescado de Río</p>
+                         </div>
+                      </div>
+
+                      <!-- Details -->
+                      <div class="flex-1 space-y-2 overflow-y-auto">
+                        <p class="text-xs text-gray-600 leading-relaxed">{{ product.description }}</p>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-xs mt-2">
+                             <div class="bg-gray-50 p-2 rounded">
+                                 <span class="block text-gray-400 text-[10px] uppercase">Temporada</span>
+                                 <span class="font-medium text-gray-700">{{product.season}}</span>
+                             </div>
+                             <div class="bg-gray-50 p-2 rounded">
+                                 <span class="block text-gray-400 text-[10px] uppercase">Disponibilidad</span>
+                                 <span class="font-medium text-gray-700">{{product.availability}}</span>
+                             </div>
+                        </div>
+                      </div>
+
+                      <!-- Footer / CTA -->
+                      <div class="mt-3 pt-2 border-t border-gray-100">
+                           <a
+                            href="https://wa.me/1234567890?text=Quiero%20comprar%20{{ product.name }}"
+                            target="_blank"
+                            (click)="$event.stopPropagation()"
+                            class="w-full block text-center bg-[#25D366] hover:bg-[#128C7E] text-white py-2 rounded-lg text-sm font-bold transition-colors"
+                          >
+                            Comprar por WhatsApp
+                          </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -198,6 +258,8 @@ export class Products {
   doubledProducts = computed(() => [...this.products(), ...this.products()]);
 
   paused = signal(false);
+  activeProductIndex = signal<number | null>(null);
+  centerOffset = signal(0);
 
   pauseMarquee() {
     this.paused.set(true);
@@ -205,6 +267,27 @@ export class Products {
 
   resumeMarquee() {
     this.paused.set(false);
+  }
+
+  toggleFlip(index: number, event?: Event) {
+    if (this.activeProductIndex() === index) {
+      this.activeProductIndex.set(null);
+      this.centerOffset.set(0);
+      this.resumeMarquee();
+    } else {
+      this.activeProductIndex.set(index);
+      this.pauseMarquee();
+
+      // Centrar tarjeta en móvil
+      if (window.innerWidth < 768 && event) {
+        const target = event.currentTarget as HTMLElement;
+        const rect = target.getBoundingClientRect();
+        const screenCenter = window.innerWidth / 2;
+        const cardCenter = rect.left + rect.width / 2;
+        const offset = screenCenter - cardCenter;
+        this.centerOffset.set(offset);
+      }
+    }
   }
 
   onImageError(event: Event) {
