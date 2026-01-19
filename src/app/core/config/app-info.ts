@@ -283,6 +283,48 @@ export const APP_SHARED_INFO = {
       embedUrl:
         'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126432.6105740445!2d-74.82194537703358!3d9.242095989262867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e5f9a6e30026335%3A0xc3f1f3e72dc0637!2sMagangu%C3%A9%2C%20Bol%C3%ADvar!5e0!3m2!1ses!2sco!4v1705680000000!5m2!1ses!2sco',
     },
+    faq: {
+      title: 'POF / Preguntas Frecuentes',
+      subtitle: 'FAQ',
+      description: '¿Tienes preguntas? Aquí en esta sección te ayudamos a resolverlas.',
+      items: [
+        {
+          question: '¿Cómo puedo solicitar un catálogo actualizado de los productos y de sus precios?',
+          answer:
+            'Si deseas comunicarte directamente con un asesor de ventas puedes llamar al siguiente número (+57) 314 805 8632 y recibirás atención personalizada resolviendo todas tus inquietudes y dudas.',
+        },
+        {
+          question: '¿Qué métodos de pago manejan?',
+          answer:
+            'Manejamos distintos métodos de pago como lo son pago directo, o pago por transferencia.',
+        },
+        {
+          question: '¿Cuentan con un punto físico?',
+          answer:
+            'Tenemos el gusto de darte a conocer nuestras instalaciones físicas y productos directamente en Avenida la Candelaria, Cra. 3 #20-29, Magangué, via a yati.',
+        },
+        {
+          question: '¿Se pueden realizar cambios o devoluciones del producto?',
+          answer:
+            'Se realizan devoluciones teniendo en cuenta lo siguiente: 1. Producto distinto al solicitado por el cliente. 2. Alimento que no cumpla los estándares de calidad que siempre manejamos como comercializadores.',
+        },
+        {
+          question: '¿Se realizan envíos a nivel nacional o domicilios a lugares aledaños?',
+          answer:
+            'Sí contamos con un sistema de logística organizado y con gran disponibilidad de entrega de la mercancía directamente al consumidor a nivel local y nacional. Priorizando el tiempo de entrega establecido, su horario y el cuidado de la mercancía.',
+        },
+        {
+          question: '¿La mercancía solo se entrega directamente por ustedes?',
+          answer:
+            'Manejamos distinta logística para la entrega como lo es: entrega directa con nosotros, cargue con conductores y vehículos externos o si nuestro cliente desea él puede seleccionar el modo como recoge su mercancía y su conductor preferencial.',
+        },
+        {
+          question: '¿Incrementan medidas de cuidado para el consumidor?',
+          answer:
+            'Como empresa contamos con lineamientos, parámetros y normatividad establecidas por el Ministerio de Salud, cuidando siempre la inocuidad del alimento, para tener un producto de excelente calidad y brindarle lo mejor a nuestro consumidor.',
+        },
+      ],
+    },
   },
   whatsapp: {
     phoneNumber: '+573148058632',

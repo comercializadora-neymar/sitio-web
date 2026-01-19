@@ -7,7 +7,7 @@ import { Navbar } from '../navbar/navbar';
   imports: [Navbar],
   template: `
     <header class="relative z-100 text-sm text-white w-full">
-      <div
+      <div id="inicio"
         class="text-center font-medium py-2 bg-linear-to-r from-neymar-blue via-neymar-blue to-neymar-orange"
       >
         <p>
@@ -19,4 +19,4 @@ import { Navbar } from '../navbar/navbar';
     </header>
   `,
 })
-export class Header {}
+export class Header { }
