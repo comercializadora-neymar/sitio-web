@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { Brand } from '../brand/brand';
 import { SvgIconComponent } from '../../icons/svg-icon.component';
 import { RouterLink } from '@angular/router';
@@ -26,9 +27,10 @@ import { APP_SHARED_INFO } from '../../../core/config/app-info';
         @for (item of appInfo.navItems; track item.href) {
           <li>
             <a
-              [routerLink]="item.href"
+              [href]="item.href"
               [attr.aria-label]="item.ariaLabel"
-              class="hover:text-neymar-orange transition-colors"
+              (click)="scrollToSection($event, item.href)"
+              class="hover:text-neymar-orange transition-colors cursor-pointer"
               >{{ item.title }}</a
             >
           </li>
@@ -36,11 +38,12 @@ import { APP_SHARED_INFO } from '../../../core/config/app-info';
       </ul>
 
       <button
-        aria-label="boton contacto"
         type="button"
+        (click)="scrollToSection($event, appInfo.helpButton.href)"
+        [attr.aria-label]="appInfo.helpButton.ariaLabel"
         class="bg-white text-gray-600 border border-gray-300 md:inline hidden text-sm hover:bg-gray-50 active:scale-95 transition-all w-40 h-11 rounded-full cursor-pointer"
       >
-        Contacto
+        {{ appInfo.helpButton.title }}
       </button>
 
       <button
@@ -70,27 +73,29 @@ import { APP_SHARED_INFO } from '../../../core/config/app-info';
           @for (item of appInfo.navItems; track item.href) {
             <li>
               <a
-                (click)="closeMenu()"
-                [routerLink]="item.href"
+                (click)="scrollToSection($event, item.href); closeMenu()"
+                [href]="item.href"
                 [attr.aria-label]="item.ariaLabel"
-                class="text-sm block py-2 hover:text-indigo-600 transition-colors"
+                class="text-sm block py-2 hover:text-indigo-600 transition-colors cursor-pointer"
                 >{{ item.title }}</a
               >
             </li>
           }
         </ul>
-        <button
-          aria-label="boton contacto"
-          type="button"
-          class="bg-neymar-blue text-white mt-6 text-sm hover:bg-neymar-orange active:scale-95 transition-all w-full h-11 rounded-full cursor-pointer"
+        <a
+          [href]="appInfo.helpButton.href"
+          [attr.aria-label]="appInfo.helpButton.ariaLabel"
+          (click)="scrollToSection($event, appInfo.helpButton.href); closeMenu()"
+          class="bg-neymar-blue text-white mt-6 text-sm hover:bg-neymar-orange active:scale-95 transition-all w-full h-11 rounded-full cursor-pointer flex items-center justify-center"
         >
-          Contacto
-        </button>
+          {{ appInfo.helpButton.title }}
+        </a>
       </div>
     </nav>
   `,
 })
 export class Navbar {
+  private document = inject(DOCUMENT);
   readonly appInfo = APP_SHARED_INFO;
   isOpen = signal(false);
 
@@ -107,5 +112,15 @@ export class Navbar {
 
   closeMenu() {
     this.isOpen.set(false);
+  }
+
+  scrollToSection(event: Event, href: string) {
+    event.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = this.document.getElementById(targetId);
+    
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }
