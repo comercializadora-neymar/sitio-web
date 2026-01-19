@@ -18,9 +18,9 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render layout', () => {
+  it('should render router outlet', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('app-layout')).toBeTruthy();
+    expect(compiled.querySelector('router-outlet')).toBeTruthy();
   });
 });

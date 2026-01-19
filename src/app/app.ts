@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { LayoutComponent } from './shared/components/layout/layout.component';
+import { RouterOutlet } from '@angular/router';
 import { SeoService } from './core/services/seo';
 
 @Component({
   selector: 'app-root',
-  imports: [LayoutComponent],
-  template: `<app-layout></app-layout>`,
+  imports: [RouterOutlet],
+  template: `<router-outlet></router-outlet>`,
 })
 export class App implements OnInit {
   private seoService = inject(SeoService);
