@@ -31,30 +31,35 @@ export const APP_SHARED_INFO = {
   navItems: [
     {
       title: 'Inicio',
-      ariaLabel: 'Abrir Sección principal',
-      href: '',
+      ariaLabel: 'Ir a sección Inicio',
+      href: '#inicio',
     },
     {
       title: 'Nosotros',
-      ariaLabel: 'Abrir Sección sobre Nosotros',
-      href: '/nosotros',
+      ariaLabel: 'Ir a sección Nosotros',
+      href: '#nosotros',
     },
     {
       title: 'Productos',
-      ariaLabel: 'Abrir Sección de Productos',
-      href: '/productos',
+      ariaLabel: 'Ir a sección Productos',
+      href: '#productos',
     },
     {
       title: 'Servicios',
-      ariaLabel: 'Abrir Sección de Servicios',
-      href: '/info/servicios',
+      ariaLabel: 'Ir a sección Servicios',
+      href: '#servicios',
     },
     {
-      title: 'Novedades',
-      ariaLabel: 'Abrir Sección de Novedades',
-      href: '/novedades',
+      title: 'Ubicación',
+      ariaLabel: 'Ir a sección Ubicación',
+      href: '#ubicacion',
     },
   ],
+  helpButton: {
+    title: 'Ayuda',
+    ariaLabel: 'Ir a sección de Preguntas Frecuentes',
+    href: '#faq',
+  },
   legalItems: [
     {
       title: 'Política de Privacidad',

@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { SvgIconComponent } from '../../icons/svg-icon.component';
 import { Brand } from '../brand/brand';
 import { APP_SHARED_INFO } from '../../../core/config/app-info';
@@ -47,7 +47,12 @@ import { APP_SHARED_INFO } from '../../../core/config/app-info';
         <ul class="mt-3 flex flex-col gap-2 text-sm">
           @for (item of appInfo.navItems; track item.href) {
             <li>
-              <a [href]="item.href" [attr.aria-label]="item.ariaLabel">{{ item.title }}</a>
+              <a 
+                [href]="item.href" 
+                [attr.aria-label]="item.ariaLabel"
+                (click)="scrollToSection($event, item.href)"
+                class="cursor-pointer hover:text-neymar-orange transition-colors"
+              >{{ item.title }}</a>
             </li>
           }
         </ul>
@@ -83,6 +88,17 @@ import { APP_SHARED_INFO } from '../../../core/config/app-info';
   </div>`,
 })
 export class Footer {
+  private document = inject(DOCUMENT);
   readonly appInfo = APP_SHARED_INFO;
   readonly currentYear = new Date().getFullYear();
+
+  scrollToSection(event: Event, href: string) {
+    event.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = this.document.getElementById(targetId);
+    
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }

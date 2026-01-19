@@ -13,17 +13,17 @@ import { APP_SHARED_INFO } from '../../core/config/app-info';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Hero, About, Products, Services, MapComponent],
   template: `
-    <app-hero></app-hero>
+    <app-hero id="inicio"></app-hero>
     <div class="grid grid-cols-1 2xl:grid-cols-2 gap-8">
-      <div class="order-2 2xl:order-1">
+      <div class="order-2 2xl:order-1" id="nosotros">
         <app-about></app-about>
       </div>
-      <div class="order-1 2xl:order-2">
+      <div class="order-1 2xl:order-2" id="productos">
         <app-products></app-products>
       </div>
     </div>
-    <app-services></app-services>
-    <app-map></app-map>
+    <app-services id="servicios"></app-services>
+    <app-map id="ubicacion"></app-map>
   `,
 })
 export class Landing implements OnInit {
