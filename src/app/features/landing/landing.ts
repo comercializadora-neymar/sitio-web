@@ -5,6 +5,7 @@ import { Products } from './components/products/products';
 import { Services } from './components/services/services';
 import { MapComponent } from './components/map/map';
 import { SeoService } from '../../core/services/seo';
+import { APP_SHARED_INFO } from '../../core/config/app-info';
 
 @Component({
   selector: 'app-landing',
@@ -27,16 +28,10 @@ import { SeoService } from '../../core/services/seo';
 })
 export class Landing implements OnInit {
   private seoService = inject(SeoService);
+  private readonly seoConfig = APP_SHARED_INFO.landing.seo;
 
   ngOnInit(): void {
-    this.seoService.updateSeo({
-      title: 'Pescado Fresco de Río - Venta al por Mayor y Detal',
-      description:
-        'Compra el mejor pescado fresco del río Magdalena. Bagre, Bocachico, Mojarra y más. Comercializadora Neymar en Magangué: calidad, frescura y envíos a toda Colombia.',
-      keywords:
-        'pescado fresco, pescado de río, magdalena, magangué, venta de pescado, bagre, bocachico, mojarra, comercializadora de pescado',
-      robots: 'index, follow',
-      canonical: 'https://comercializadora-neymar.com/',
-    });
+    this.seoService.updateSeo(this.seoConfig);
   }
 }
+

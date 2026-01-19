@@ -1,10 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MapComponent } from './map';
 
-import { About } from './about';
-
-describe('About', () => {
-  let component: About;
-  let fixture: ComponentFixture<About>;
+describe('MapComponent', () => {
+  let component: MapComponent;
+  let fixture: ComponentFixture<MapComponent>;
 
   beforeAll(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,10 +19,10 @@ describe('About', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [About],
+      imports: [MapComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(About);
+    fixture = TestBed.createComponent(MapComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -32,23 +31,19 @@ describe('About', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render section', () => {
+  it('should render iframe with google maps', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('section')).toBeTruthy();
+    const iframe = compiled.querySelector('iframe');
+    expect(iframe).toBeTruthy();
   });
 
-  it('should render title', () => {
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.textContent).toContain('Sobre Comercializadora Neymar');
+  it('should have safe map URL', () => {
+    expect(component.safeMapUrl).toBeTruthy();
   });
 
-  it('should render image with correct alt text', () => {
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    const img = compiled.querySelector('img');
-    expect(img).toBeTruthy();
-    expect(img?.getAttribute('alt')).toBe('Productos frescos del río');
+  it('should use data from app-info', () => {
+    expect(component.mapData).toBeTruthy();
+    expect(component.mapData.embedUrl).toContain('google.com/maps');
   });
 });
