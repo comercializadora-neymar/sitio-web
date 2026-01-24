@@ -9,19 +9,19 @@ import { DomSanitizer } from '@angular/platform-browser';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FadeInUpDirective],
   template: `
-    <section 
-      class="w-full h-[300px] lg:h-[400px] 2xl:h-[600px] relative z-10 bg-gray-100"
+    <section
+      class="w-full h-100 lg:h-120 2xl:h-150 relative z-10 bg-gray-100"
       appFadeInUp
     >
-      <iframe 
+      <iframe
         [src]="safeMapUrl"
-        width="100%" 
-        height="100%" 
-        style="border:0;" 
-        allowfullscreen="" 
-        loading="lazy" 
+        width="100%"
+        height="100%"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-        class="w-full h-full block filter grayscale-[20%] contrast-[1.1] hover:grayscale-0 transition-all duration-500"
+        class="w-full h-full block filter grayscale-20 contrast-[1.1] hover:grayscale-0 transition-all duration-500"
       ></iframe>
     </section>
   `

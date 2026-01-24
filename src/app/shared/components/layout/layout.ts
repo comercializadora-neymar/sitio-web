@@ -18,4 +18,4 @@ import { FloatingWhatsapp } from '../floating-whatsapp/floating-whatsapp';
     <app-floating-whatsapp></app-floating-whatsapp>
   `,
 })
-export class LayoutComponent {}
+export class Layout { }

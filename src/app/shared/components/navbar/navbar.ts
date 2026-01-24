@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 import { Brand } from '../brand/brand';
 import { SvgIconComponent } from '../../icons/svg-icon.component';
 import { RouterLink } from '@angular/router';
 import { APP_SHARED_INFO } from '../../../core/config/app-info';
+import { NavigationService } from '../../../core/services/navigation.service';
 
 @Component({
   selector: 'app-navbar',
@@ -95,7 +95,7 @@ import { APP_SHARED_INFO } from '../../../core/config/app-info';
   `,
 })
 export class Navbar {
-  private document = inject(DOCUMENT);
+  private readonly navigationService = inject(NavigationService);
   readonly appInfo = APP_SHARED_INFO;
   isOpen = signal(false);
 
@@ -116,11 +116,6 @@ export class Navbar {
 
   scrollToSection(event: Event, href: string) {
     event.preventDefault();
-    const targetId = href.replace('#', '');
-    const element = this.document.getElementById(targetId);
-    
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    this.navigationService.scrollToSection(href);
   }
 }

@@ -1,7 +1,7 @@
 import { inject, Injectable, signal, PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
-import { SeoConfig } from '../models/seo-config';
+import { SeoConfig } from '../models/seo-config.model';
 
 @Injectable({
   providedIn: 'root',

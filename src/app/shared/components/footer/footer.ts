@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from '../../icons/svg-icon.component';
 import { Brand } from '../brand/brand';
 import { APP_SHARED_INFO } from '../../../core/config/app-info';
+import { NavigationService } from '../../../core/services/navigation.service';
 
 @Component({
   selector: 'app-footer',
@@ -88,17 +89,12 @@ import { APP_SHARED_INFO } from '../../../core/config/app-info';
   </div>`,
 })
 export class Footer {
-  private document = inject(DOCUMENT);
+  private readonly navigationService = inject(NavigationService);
   readonly appInfo = APP_SHARED_INFO;
   readonly currentYear = new Date().getFullYear();
 
   scrollToSection(event: Event, href: string) {
     event.preventDefault();
-    const targetId = href.replace('#', '');
-    const element = this.document.getElementById(targetId);
-    
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    this.navigationService.scrollToSection(href);
   }
 }

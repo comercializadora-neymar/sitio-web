@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Hero } from './hero';
+import { NavigationService } from '../../../../core/services/navigation.service';
+import { vi } from 'vitest';
 
 describe('Hero', () => {
   let component: Hero;
@@ -38,6 +40,16 @@ describe('Hero', () => {
   it('should render title', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.textContent).toContain('PESQUERA NEYMAR');
+    expect(compiled.textContent).toContain('DEL RÍO A TU MESA');
+  });
+
+  it('should call NavigationService.scrollToSection when button is clicked', () => {
+    const navigationService = TestBed.inject(NavigationService);
+    const spy = vi.spyOn(navigationService, 'scrollToSection');
+    const href = '#productos';
+
+    component.scrollToSection(href);
+
+    expect(spy).toHaveBeenCalledWith(href);
   });
 });

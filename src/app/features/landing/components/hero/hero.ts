@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { APP_SHARED_INFO } from '../../../../core/config/app-info';
+import { NavigationService } from '../../../../core/services/navigation.service';
 
 @Component({
   selector: 'app-hero',
@@ -15,8 +16,7 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
         <img
           [ngSrc]="heroData.imageUrl"
           [alt]="heroData.imageAlt"
-          width="800"
-          height="1200"
+          fill
           priority
           class="w-full h-full object-cover"
         />
@@ -38,6 +38,7 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
             @for (button of heroData.ctaButtons; track button.label) {
               <button
                 type="button"
+                (click)="scrollToSection(button.href)"
                 [class]="button.type === 'primary' 
                   ? 'bg-white text-[#0A2D4D] px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold transition-all shadow-xl cursor-pointer hover:scale-105 active:scale-95 max-h-[750px]:py-2.5 max-h-[750px]:text-sm'
                   : 'bg-[#0A2D4D] text-white px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold transition-all shadow-xl cursor-pointer hover:bg-[#0A2D4D]/90 hover:scale-105 active:scale-95 max-h-[750px]:py-2.5 max-h-[750px]:text-sm'"
@@ -125,5 +126,10 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
   `,
 })
 export class Hero {
+  private readonly navigationService = inject(NavigationService);
   readonly heroData = APP_SHARED_INFO.landing.hero;
+
+  scrollToSection(href: string) {
+    this.navigationService.scrollToSection(href);
+  }
 }

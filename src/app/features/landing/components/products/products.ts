@@ -1,14 +1,16 @@
-import { ChangeDetectionStrategy, Component, signal, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.directive';
 import { APP_SHARED_INFO } from '../../../../core/config/app-info';
 import type { Product } from '../../../../core/models/product.model';
+import { WhatsappService } from '../../../../core/services/whatsapp.service';
+import { FallbackImageDirective } from '../../../../shared/directives/fallback-image.directive';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, FadeInUpDirective],
+  imports: [CommonModule, FadeInUpDirective, FallbackImageDirective],
   styles: [
     `
       .marquee-inner {
@@ -73,9 +75,9 @@ import type { Product } from '../../../../core/models/product.model';
                     >
                       <img
                         [src]="product.image || productsData.defaultImage"
+                        [appFallbackImage]="productsData.defaultImage"
                         alt="{{ product.name }}"
                         class="w-full h-64 object-cover"
-                        (error)="onImageError($event)"
                       />
                       <div class="p-4 flex flex-col justify-between h-16 bg-white">
                         <div class="flex justify-between items-center">
@@ -98,6 +100,7 @@ import type { Product } from '../../../../core/models/product.model';
                          <div class="size-10 rounded-full overflow-hidden border border-gray-200 shrink-0">
                              <img
                               [src]="product.image || productsData.defaultImage"
+                              [appFallbackImage]="productsData.defaultImage"
                               alt="Miniatura de {{ product.name }}"
                               class="w-full h-full object-cover"
                              />
@@ -129,6 +132,7 @@ import type { Product } from '../../../../core/models/product.model';
                            <a
                             [href]="whatsappLink(product.name)"
                             target="_blank"
+                            aria-label="Comprar {{ product.name }} por WhatsApp"
                             (click)="$event.stopPropagation()"
                             class="w-full block text-center bg-[#25D366] hover:bg-[#128C7E] text-white py-2 rounded-lg text-sm font-bold transition-colors"
                           >
@@ -150,9 +154,9 @@ import type { Product } from '../../../../core/models/product.model';
   `,
 })
 export class Products {
+  private readonly whatsappService = inject(WhatsappService);
   readonly productsData = APP_SHARED_INFO.landing.products;
-  readonly whatsappConfig = APP_SHARED_INFO.whatsapp;
-  
+
   products = signal<Product[]>(this.productsData.items);
 
   doubledProducts = computed(() => [...this.products(), ...this.products()]);
@@ -190,13 +194,7 @@ export class Products {
     }
   }
 
-  onImageError(event: Event) {
-    const img = event.target as HTMLImageElement;
-    img.src = this.productsData.defaultImage;
-  }
-
   whatsappLink(productName: string): string {
-    const message = this.whatsappConfig.message(productName);
-    return `https://wa.me/${this.whatsappConfig.phoneNumber}?text=${message}`;
+    return this.whatsappService.getLink(productName);
   }
 }
