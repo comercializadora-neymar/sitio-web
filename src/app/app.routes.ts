@@ -12,4 +12,18 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'info',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./features/info/info.routes').then((m) => m.INFO_ROUTES),
+      },
+    ],
+  },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];

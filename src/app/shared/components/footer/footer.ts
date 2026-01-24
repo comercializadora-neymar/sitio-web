@@ -4,12 +4,13 @@ import { SvgIconComponent } from '../../icons/svg-icon.component';
 import { Brand } from '../brand/brand';
 import { APP_SHARED_INFO } from '../../../core/config/app-info';
 import { NavigationService } from '../../../core/services/navigation.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, SvgIconComponent, Brand],
+  imports: [CommonModule, SvgIconComponent, Brand, RouterLink],
   template: `<div class="text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32">
     <div class="flex flex-wrap justify-between gap-12 md:gap-6">
       <div class="max-w-full">
@@ -48,12 +49,13 @@ import { NavigationService } from '../../../core/services/navigation.service';
         <ul class="mt-3 flex flex-col gap-2 text-sm">
           @for (item of appInfo.navItems; track item.href) {
             <li>
-              <a 
-                [href]="item.href" 
+              <a
+                [href]="item.href"
                 [attr.aria-label]="item.ariaLabel"
                 (click)="scrollToSection($event, item.href)"
                 class="cursor-pointer hover:text-neymar-orange transition-colors"
-              >{{ item.title }}</a>
+                >{{ item.title }}</a
+              >
             </li>
           }
         </ul>
@@ -62,19 +64,27 @@ import { NavigationService } from '../../../core/services/navigation.service';
         <p class="text-lg text-gray-800 mb-4">Contacto</p>
         <div class="flex flex-col gap-3 text-sm">
           <div class="flex items-start gap-3">
-             <app-svg-icon icon="phone" size="18px" class="text-neymar-blue shrink-0 mt-0.5"></app-svg-icon>
-             <div class="flex flex-col">
-               <span>{{ appInfo.contact.phoneStringPrimary }}</span>
-               <span class="text-gray-400 text-xs">{{ appInfo.contact.phoneStringSecondary }}</span>
-             </div>
+            <app-svg-icon
+              icon="phone"
+              size="18px"
+              class="text-neymar-blue shrink-0 mt-0.5"
+            ></app-svg-icon>
+            <div class="flex flex-col">
+              <span>{{ appInfo.contact.phoneStringPrimary }}</span>
+              <span class="text-gray-400 text-xs">{{ appInfo.contact.phoneStringSecondary }}</span>
+            </div>
           </div>
           <div class="flex items-center gap-3">
-             <app-svg-icon icon="email" size="18px" class="text-neymar-blue shrink-0"></app-svg-icon>
-             <span class="truncate">{{ appInfo.contact.email }}</span>
+            <app-svg-icon icon="email" size="18px" class="text-neymar-blue shrink-0"></app-svg-icon>
+            <span class="truncate">{{ appInfo.contact.email }}</span>
           </div>
           <div class="flex items-start gap-3">
-             <app-svg-icon icon="location" size="18px" class="text-neymar-blue shrink-0 mt-0.5"></app-svg-icon>
-             <span class="leading-snug">{{ appInfo.contact.location }}</span>
+            <app-svg-icon
+              icon="location"
+              size="18px"
+              class="text-neymar-blue shrink-0 mt-0.5"
+            ></app-svg-icon>
+            <span class="leading-snug">{{ appInfo.contact.location }}</span>
           </div>
         </div>
       </div>
@@ -94,7 +104,9 @@ import { NavigationService } from '../../../core/services/navigation.service';
       <ul class="flex items-center gap-4">
         @for (item of appInfo.legalItems; track item.href) {
           <li>
-            <a [href]="item.href" [attr.aria-label]="item.ariaLabel">{{ item.title }}</a>
+            <a [routerLink]="'/info/' + item.href" [attr.aria-label]="item.ariaLabel">{{
+              item.title
+            }}</a>
           </li>
         }
       </ul>
