@@ -1,11 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { vi } from 'vitest';
 
 import { Layout } from './layout';
 
 describe('LayoutComponent', () => {
   let component: Layout;
   let fixture: ComponentFixture<Layout>;
+
+  beforeAll(() => {
+    (window as unknown as { IntersectionObserver: unknown }).IntersectionObserver = class {
+      observe = vi.fn();
+      unobserve = vi.fn();
+      disconnect = vi.fn();
+    };
+  });
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

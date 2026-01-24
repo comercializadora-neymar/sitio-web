@@ -58,12 +58,25 @@ import { NavigationService } from '../../../core/services/navigation.service';
           }
         </ul>
       </div>
-      <div>
-        <p class="text-lg text-gray-800">Contacto</p>
-        <p class="text-sm">{{ appInfo.contact.phoneStringPrimary }}</p>
-        <p class="text-sm">{{ appInfo.contact.phoneStringSecondary }}</p>
-        <p class="text-sm">{{ appInfo.contact.email }}</p>
-        <p class="text-sm">{{ appInfo.contact.location }}</p>
+      <div class="min-w-64">
+        <p class="text-lg text-gray-800 mb-4">Contacto</p>
+        <div class="flex flex-col gap-3 text-sm">
+          <div class="flex items-start gap-3">
+             <app-svg-icon icon="phone" size="18px" class="text-neymar-blue shrink-0 mt-0.5"></app-svg-icon>
+             <div class="flex flex-col">
+               <span>{{ appInfo.contact.phoneStringPrimary }}</span>
+               <span class="text-gray-400 text-xs">{{ appInfo.contact.phoneStringSecondary }}</span>
+             </div>
+          </div>
+          <div class="flex items-center gap-3">
+             <app-svg-icon icon="email" size="18px" class="text-neymar-blue shrink-0"></app-svg-icon>
+             <span class="truncate">{{ appInfo.contact.email }}</span>
+          </div>
+          <div class="flex items-start gap-3">
+             <app-svg-icon icon="location" size="18px" class="text-neymar-blue shrink-0 mt-0.5"></app-svg-icon>
+             <span class="leading-snug">{{ appInfo.contact.location }}</span>
+          </div>
+        </div>
       </div>
       <div class="max-w-80">
         <p class="text-lg text-gray-800">Horarios de atención</p>
