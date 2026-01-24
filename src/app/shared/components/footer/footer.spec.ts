@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavigationService } from '../../../core/services/navigation.service';
 import { Footer } from './footer';
 import { vi } from 'vitest';
+import { provideRouter } from '@angular/router';
 
 describe('Footer', () => {
   let component: Footer;
@@ -10,6 +11,7 @@ describe('Footer', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Footer],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Footer);

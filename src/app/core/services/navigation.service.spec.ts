@@ -12,6 +12,7 @@ describe('NavigationService', () => {
     beforeEach(() => {
         const routerMock = {
             navigate: vi.fn().mockResolvedValue(true),
+            url: '/',
         };
 
         TestBed.configureTestingModule({

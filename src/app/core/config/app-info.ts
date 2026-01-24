@@ -64,17 +64,17 @@ export const APP_SHARED_INFO = {
     {
       title: 'Política de Privacidad',
       ariaLabel: 'Abrir pagina de Política de Privacidad',
-      href: '/politicas-de-privacidad',
+      href: 'politicas-de-privacidad',
     },
     {
       title: 'Términos y Condiciones',
       ariaLabel: 'Abrir pagina de Términos y Condiciones',
-      href: '/terminos-y-condiciones',
+      href: 'terminos-y-condiciones',
     },
     {
       title: 'Aviso Legal',
       ariaLabel: 'Abrir pagina de Aviso Legal',
-      href: '/aviso-legal',
+      href: 'aviso-legal',
     },
   ],
   landing: {
