@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { APP_SHARED_INFO } from '../../../../core/config/app-info';
+import { NavigationService } from '../../../../core/services/navigation.service';
+import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.directive';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, FadeInUpDirective],
   template: `
     <section
       class="relative w-full h-[90vh] min-h-[500px] lg:min-h-[600px] flex items-start lg:items-center overflow-hidden bg-gray-900"
@@ -15,8 +17,7 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
         <img
           [ngSrc]="heroData.imageUrl"
           [alt]="heroData.imageAlt"
-          width="800"
-          height="1200"
+          fill
           priority
           class="w-full h-full object-cover"
         />
@@ -26,6 +27,8 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
       <div class="container mx-auto px-6 relative z-10 text-left pt-24 lg:pt-0">
         <div class="max-w-4xl">
           <h1
+            appFadeInUp
+            [delay]="100"
             class="text-white font-black uppercase tracking-tight leading-[1] transition-all
                      text-3xl sm:text-5xl md:text-6xl xl:text-7xl
                      max-h-[750px]:text-3xl max-h-[750px]:mb-4
@@ -37,7 +40,10 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
           <div class="flex flex-col sm:flex-row items-start gap-4">
             @for (button of heroData.ctaButtons; track button.label) {
               <button
+                appFadeInUp
+                [delay]="200 + ($index * 100)"
                 type="button"
+                (click)="scrollToSection(button.href)"
                 [class]="button.type === 'primary' 
                   ? 'bg-white text-[#0A2D4D] px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold transition-all shadow-xl cursor-pointer hover:scale-105 active:scale-95 max-h-[750px]:py-2.5 max-h-[750px]:text-sm'
                   : 'bg-[#0A2D4D] text-white px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold transition-all shadow-xl cursor-pointer hover:bg-[#0A2D4D]/90 hover:scale-105 active:scale-95 max-h-[750px]:py-2.5 max-h-[750px]:text-sm'"
@@ -125,5 +131,10 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
   `,
 })
 export class Hero {
+  private readonly navigationService = inject(NavigationService);
   readonly heroData = APP_SHARED_INFO.landing.hero;
+
+  scrollToSection(href: string) {
+    this.navigationService.scrollToSection(href);
+  }
 }

@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from '../../icons/svg-icon.component';
+import { WhatsappService } from '../../../core/services/whatsapp.service';
 
 @Component({
   selector: 'app-floating-whatsapp',
@@ -9,7 +10,7 @@ import { SvgIconComponent } from '../../icons/svg-icon.component';
   imports: [CommonModule, SvgIconComponent],
   template: `
     <a
-      href="https://wa.me/1234567890"
+      [href]="whatsappLink()"
       target="_blank"
       class="group fixed bottom-6 right-6 z-50 flex items-center h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:shadow-xl hover:bg-[#20bd5a] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] p-4 overflow-hidden"
       aria-label="Contactar por WhatsApp"
@@ -35,4 +36,10 @@ import { SvgIconComponent } from '../../icons/svg-icon.component';
     }
   `]
 })
-export class FloatingWhatsapp {}
+export class FloatingWhatsapp {
+  private readonly whatsappService = inject(WhatsappService);
+
+  whatsappLink(): string {
+    return this.whatsappService.getLink();
+  }
+}

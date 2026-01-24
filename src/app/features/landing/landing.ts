@@ -5,7 +5,7 @@ import { Products } from './components/products/products';
 import { Services } from './components/services/services';
 import { MapComponent } from './components/map/map';
 import { Faq } from './components/faq/faq';
-import { SeoService } from '../../core/services/seo';
+import { SeoService } from '../../core/services/seo.service';
 import { APP_SHARED_INFO } from '../../core/config/app-info';
 
 @Component({

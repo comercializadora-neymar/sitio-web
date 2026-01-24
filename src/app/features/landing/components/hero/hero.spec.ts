@@ -1,10 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { NavigationService } from '../../../../core/services/navigation.service';
+import { vi } from 'vitest';
+
 import { Hero } from './hero';
 
 describe('Hero', () => {
   let component: Hero;
   let fixture: ComponentFixture<Hero>;
+
+  beforeAll(() => {
+    (window as unknown as { IntersectionObserver: unknown }).IntersectionObserver = class {
+      observe = vi.fn();
+      unobserve = vi.fn();
+      disconnect = vi.fn();
+    };
+  });
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -38,6 +49,16 @@ describe('Hero', () => {
   it('should render title', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.textContent).toContain('PESQUERA NEYMAR');
+    expect(compiled.textContent).toContain('DEL RÍO A TU MESA');
+  });
+
+  it('should call NavigationService.scrollToSection when button is clicked', () => {
+    const navigationService = TestBed.inject(NavigationService);
+    const spy = vi.spyOn(navigationService, 'scrollToSection');
+    const href = '#productos';
+
+    component.scrollToSection(href);
+
+    expect(spy).toHaveBeenCalledWith(href);
   });
 });

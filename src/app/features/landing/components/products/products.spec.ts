@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Products } from './products';
+import { WhatsappService } from '../../../../core/services/whatsapp.service';
+import { vi } from 'vitest';
 
 describe('Products', () => {
   let component: Products;
@@ -10,11 +12,11 @@ describe('Products', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).IntersectionObserver = class {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      observe() {}
+      observe() { }
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      unobserve() {}
+      unobserve() { }
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      disconnect() {}
+      disconnect() { }
     };
   });
 
@@ -59,7 +61,7 @@ describe('Products', () => {
       // Setup: active
       component.centerOffset.set(100);
       component.toggleFlip(0); // Activate
-      
+
       // Act: Toggle again to deactivate
       component.toggleFlip(0);
 
@@ -71,7 +73,7 @@ describe('Products', () => {
     it('should calculate specific center offset on mobile (mocking window)', () => {
       // Mock window.innerWidth
       Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 500 });
-      
+
       const mockEvent = {
         currentTarget: {
           getBoundingClientRect: () => ({
@@ -104,5 +106,15 @@ describe('Products', () => {
       component.toggleFlip(1, mockEvent);
       expect(component.centerOffset()).toBe(0); // Should remain 0
     });
+  });
+
+  it('should call WhatsappService.getLink when calling whatsappLink', () => {
+    const whatsappService = TestBed.inject(WhatsappService);
+    const spy = vi.spyOn(whatsappService, 'getLink');
+    const productName = 'Test Product';
+
+    component.whatsappLink(productName);
+
+    expect(spy).toHaveBeenCalledWith(productName);
   });
 });

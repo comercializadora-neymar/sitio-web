@@ -1,6 +1,6 @@
 import type { Product } from '../models/product.model';
 import type { Service } from '../models/service.model';
-import type { SeoConfig } from '../models/seo-config';
+import type { SeoConfig } from '../models/seo-config.model';
 
 export const APP_SHARED_INFO = {
   brand: {
@@ -79,18 +79,19 @@ export const APP_SHARED_INFO = {
   ],
   landing: {
     hero: {
-      title: 'PESQUERA NEYMAR:\nDEL RÍO A TU MESA CON\nFRESCURA Y TRADICIÓN',
-      imageUrl:
-        'https://placehold.co/800x1200/FFA500/FFFFFF?text=Hero+Image+-+Atardecer+sobre+el+río+Magdalena',
+      title: 'DEL RÍO A TU MESA CON\nFRESCURA Y TRADICIÓN',
+      imageUrl: '/hero-image.png',
       imageAlt: 'Atardecer sobre el río Magdalena',
       ctaButtons: [
         {
           label: 'Conoce Nuestros Productos',
           type: 'primary' as const,
+          href: '#productos',
         },
         {
           label: 'Nuestra Historia',
           type: 'secondary' as const,
+          href: '#nosotros',
         },
       ],
     },
@@ -98,8 +99,7 @@ export const APP_SHARED_INFO = {
       title: 'Sobre Comercializadora Neymar',
       description:
         'Somos una empresa familiar con décadas de tradición en la comercialización de pescado ribereño fresco del río Magdalena.',
-      imageUrl:
-        'https://placehold.co/830x844/32CD32/FFFFFF?text=Productos+frescos+del+río',
+      imageUrl: '/about-us.png',
       imageAlt: 'Productos frescos del río',
       commitmentsTitle: 'Nuestros Compromisos',
       commitmentsDescription:
@@ -129,12 +129,12 @@ export const APP_SHARED_INFO = {
       title: 'Nuestro Pescado Fresco: Bagre, Bocachico y más',
       description:
         'Descubre nuestra selección de pescados frescos de río, capturados con cuidado para garantizar la mejor calidad.',
-      defaultImage: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Default',
+      defaultImage: '/product-default.png',
       items: [
         {
           name: 'Bagre',
           description: 'Pescado de río de carne blanca y suave, ideal para freír o sudar.',
-          image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Bagre',
+          image: '/product-bagre.png',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 100,
@@ -143,7 +143,7 @@ export const APP_SHARED_INFO = {
         {
           name: 'Bocachico',
           description: 'Pescado de río, de sabor intenso y textura firme, perfecto para asar.',
-          image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Bocachico',
+          image: '/product-bocachico.png',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 200,
@@ -153,7 +153,7 @@ export const APP_SHARED_INFO = {
           name: 'Mojarra',
           description:
             'Pescado de río, versátil y delicioso, ideal para freír entera o en filetes.',
-          image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Mojarra',
+          image: '/product-mojarra.png',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 300,
@@ -162,7 +162,7 @@ export const APP_SHARED_INFO = {
         {
           name: 'Capaz',
           description: 'Pescado de río con carne firme y sabrosa, excelente para sopas y guisos.',
-          image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Capaz',
+          image: '/product-default.png',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 150,
@@ -171,7 +171,7 @@ export const APP_SHARED_INFO = {
         {
           name: 'Sabaleta',
           description: 'Pescado pequeño y delicioso, ideal para frituras y ceviches.',
-          image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Sabaleta',
+          image: '/product-default.png',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 120,
@@ -181,7 +181,7 @@ export const APP_SHARED_INFO = {
           name: 'Blanquillo',
           description:
             'Pescado de río con carne blanca y suave, perfecto para preparaciones ligeras.',
-          image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Blanquillo',
+          image: '/product-default.png',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 180,
@@ -191,7 +191,7 @@ export const APP_SHARED_INFO = {
           name: 'Carpa',
           description:
             'Pescado de agua dulce, de carne firme y con bajo contenido de grasa.',
-          image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Carpa',
+          image: '/product-default.png',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 140,
@@ -201,7 +201,7 @@ export const APP_SHARED_INFO = {
           name: 'Tilapia',
           description:
             'Pescado criado en criaderos, versátil y de bajo costo, ideal para diversas preparaciones.',
-          image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Tilapia',
+          image: '/product-default.png',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 110,
@@ -210,7 +210,7 @@ export const APP_SHARED_INFO = {
         {
           name: 'Nicuro',
           description: 'Pescado de río pequeño, con sabor delicado, perfecto para comidas ligeras.',
-          image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Nicuro',
+          image: '/product-default.png',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 160,
@@ -219,7 +219,7 @@ export const APP_SHARED_INFO = {
         {
           name: 'Doncella',
           description: 'Pescado de río con carne tierna, excelente para asados y parrillas.',
-          image: 'https://placehold.co/400x300/87CEEB/FFFFFF?text=Producto+-+Doncella',
+          image: '/product-default.png',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 190,
@@ -281,10 +281,10 @@ export const APP_SHARED_INFO = {
     } as SeoConfig,
     map: {
       embedUrl:
-        'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126432.6105740445!2d-74.82194537703358!3d9.242095989262867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e5f9a6e30026335%3A0xc3f1f3e72dc0637!2sMagangu%C3%A9%2C%20Bol%C3%ADvar!5e0!3m2!1ses!2sco!4v1705680000000!5m2!1ses!2sco',
+        'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d984.5171275644586!2d-74.7425233!3d9.2381708!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e5ec7eabc9796ef%3A0x31dc40808f9800da!2sComercializadora%20Neymar%20-%20Pesquera%20y%20Distribuci%C3%B3n!5e0!3m2!1ses-419!2sco!4v1769055010583!5m2!1ses-419!2sco',
     },
     faq: {
-      title: 'POF / Preguntas Frecuentes',
+      title: 'Preguntas Frecuentes',
       subtitle: 'FAQ',
       description: '¿Tienes preguntas? Aquí en esta sección te ayudamos a resolverlas.',
       items: [
