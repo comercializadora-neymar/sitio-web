@@ -6,10 +6,36 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import helmet from 'helmet';
+import compression from 'compression';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
+
+// Security Headers
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'script-src': ["'self'", "'unsafe-inline'", 'maps.googleapis.com', 'www.google.com'],
+        'script-src-attr': ["'self'", "'unsafe-inline'"],
+        'style-src': ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
+        'style-src-attr': ["'self'", "'unsafe-inline'"],
+        'img-src': ["'self'", 'data:', 'maps.gstatic.com', 'maps.googleapis.com', '*.google.com', 'inline:'],
+        'font-src': ["'self'", 'fonts.gstatic.com', 'data:'],
+        'connect-src': ["'self'", '*.googleapis.com', 'maps.googleapis.com', 'localhost:*', 'ws://localhost:*'],
+        'frame-src': ["'self'", 'www.google.com'],
+      },
+    },
+    crossOriginOpenerPolicy: { policy: 'same-origin' },
+  }),
+);
+
+// Compression
+app.use(compression());
+
 const angularApp = new AngularNodeAppEngine();
 
 /**
