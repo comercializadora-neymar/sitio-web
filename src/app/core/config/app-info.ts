@@ -80,7 +80,7 @@ export const APP_SHARED_INFO = {
   landing: {
     hero: {
       title: 'DEL RÍO A TU MESA CON\nFRESCURA Y TRADICIÓN',
-      imageUrl: '/hero-image.png',
+      imageUrl: '/hero-image.webp',
       imageAlt: 'Atardecer sobre el río Magdalena',
       ctaButtons: [
         {
@@ -99,7 +99,7 @@ export const APP_SHARED_INFO = {
       title: 'Sobre Comercializadora Neymar',
       description:
         'Somos una empresa familiar con décadas de tradición en la comercialización de pescado ribereño fresco del río Magdalena.',
-      imageUrl: '/about-us.png',
+      imageUrl: '/about-us.webp',
       imageAlt: 'Productos frescos del río',
       commitmentsTitle: 'Nuestros Compromisos',
       commitmentsDescription:
@@ -129,12 +129,12 @@ export const APP_SHARED_INFO = {
       title: 'Nuestro Pescado Fresco: Bagre, Bocachico y más',
       description:
         'Descubre nuestra selección de pescados frescos de río, capturados con cuidado para garantizar la mejor calidad.',
-      defaultImage: '/product-default.png',
+      defaultImage: '/product-default.webp',
       items: [
         {
           name: 'Bagre',
           description: 'Pescado de río de carne blanca y suave, ideal para freír o sudar.',
-          image: '/product-bagre.png',
+          image: '/product-bagre.webp',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 100,
@@ -143,7 +143,7 @@ export const APP_SHARED_INFO = {
         {
           name: 'Bocachico',
           description: 'Pescado de río, de sabor intenso y textura firme, perfecto para asar.',
-          image: '/product-bocachico.png',
+          image: '/product-bocachico.webp',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 200,
@@ -153,7 +153,7 @@ export const APP_SHARED_INFO = {
           name: 'Mojarra',
           description:
             'Pescado de río, versátil y delicioso, ideal para freír entera o en filetes.',
-          image: '/product-mojarra.png',
+          image: '/product-mojarra.webp',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 300,
@@ -162,7 +162,7 @@ export const APP_SHARED_INFO = {
         {
           name: 'Capaz',
           description: 'Pescado de río con carne firme y sabrosa, excelente para sopas y guisos.',
-          image: '/product-default.png',
+          image: '/product-default.webp',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 150,
@@ -171,7 +171,7 @@ export const APP_SHARED_INFO = {
         {
           name: 'Sabaleta',
           description: 'Pescado pequeño y delicioso, ideal para frituras y ceviches.',
-          image: '/product-default.png',
+          image: '/product-default.webp',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 120,
@@ -181,7 +181,7 @@ export const APP_SHARED_INFO = {
           name: 'Blanquillo',
           description:
             'Pescado de río con carne blanca y suave, perfecto para preparaciones ligeras.',
-          image: '/product-default.png',
+          image: '/product-default.webp',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 180,
@@ -191,7 +191,7 @@ export const APP_SHARED_INFO = {
           name: 'Carpa',
           description:
             'Pescado de agua dulce, de carne firme y con bajo contenido de grasa.',
-          image: '/product-default.png',
+          image: '/product-default.webp',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 140,
@@ -201,7 +201,7 @@ export const APP_SHARED_INFO = {
           name: 'Tilapia',
           description:
             'Pescado criado en criaderos, versátil y de bajo costo, ideal para diversas preparaciones.',
-          image: '/product-default.png',
+          image: '/product-default.webp',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 110,
@@ -210,7 +210,7 @@ export const APP_SHARED_INFO = {
         {
           name: 'Nicuro',
           description: 'Pescado de río pequeño, con sabor delicado, perfecto para comidas ligeras.',
-          image: '/product-default.png',
+          image: '/product-default.webp',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 160,
@@ -219,7 +219,7 @@ export const APP_SHARED_INFO = {
         {
           name: 'Doncella',
           description: 'Pescado de río con carne tierna, excelente para asados y parrillas.',
-          image: '/product-default.png',
+          image: '/product-default.webp',
           weight: 'Menos de 0.5 kg',
           season: 'Todo el año',
           price: 190,

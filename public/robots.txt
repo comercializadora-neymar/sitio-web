@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://comercializadora-neymar.com/sitemap.xml
