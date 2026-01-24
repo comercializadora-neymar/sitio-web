@@ -1,9 +1,11 @@
 import { Component, input } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { APP_SHARED_INFO } from '../../../core/config/app-info';
 
 @Component({
   selector: 'app-brand',
   standalone: true,
+  imports: [NgOptimizedImage],
   template: `
     <div
       class="flex items-center gap-2 transition-all"
@@ -11,10 +13,12 @@ import { APP_SHARED_INFO } from '../../../core/config/app-info';
     >
       <div class="flex items-center gap-1.5">
         <img
-          [src]="appInfo.brand.icono.url"
+          [ngSrc]="appInfo.brand.icono.url"
           [alt]="appInfo.brand.icono.ariaLabel"
+          [width]="isSmall() ? 46 : 202"
+          [height]="isSmall() ? 36 : 160"
+          class="object-contain h-auto"
           [class]="isSmall() ? 'w-8 sm:w-9' : 'w-32 sm:w-42'"
-          class="h-auto object-contain"
         />
 
         <div class="flex flex-col justify-center">
@@ -36,7 +40,7 @@ import { APP_SHARED_INFO } from '../../../core/config/app-info';
 
           @if (!isSmall()) {
             <span
-              class="font-display font-light text-[0.6rem] sm:text-[0.9rem] text-neymar-orange uppercase tracking-[2px] ml-6"
+              class="font-display font-semibold text-[0.6rem] sm:text-[0.9rem] text-[#b45309] uppercase tracking-[2px] ml-6"
             >
               {{ appInfo.brand.description }}
             </span>

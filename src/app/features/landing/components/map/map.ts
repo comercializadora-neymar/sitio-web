@@ -15,6 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     >
       <iframe
         [src]="safeMapUrl"
+        title="Ubicación de Comercializadora Neymar"
         width="100%"
         height="100%"
         style="border:0;"

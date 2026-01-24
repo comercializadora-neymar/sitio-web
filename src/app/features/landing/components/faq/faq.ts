@@ -25,7 +25,7 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
         {{ appInfo.landing.faq.title }}
       </h2>
       <p 
-        class="text-sm text-slate-500 mt-4 max-w-sm"
+        class="text-sm text-slate-600 mt-4 max-w-sm"
         appFadeInUp
         [delay]="200"
       >

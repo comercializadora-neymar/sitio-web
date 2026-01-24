@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, SvgIconComponent, Brand, RouterLink],
-  template: `<div class="text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32">
+  template: `<div class="text-gray-700 pt-8 px-6 md:px-16 lg:px-24 xl:px-32">
     <div class="flex flex-wrap justify-between gap-12 md:gap-6">
       <div class="max-w-full">
         <app-brand></app-brand>
@@ -53,7 +53,7 @@ import { RouterLink } from '@angular/router';
                 [href]="item.href"
                 [attr.aria-label]="item.ariaLabel"
                 (click)="scrollToSection($event, item.href)"
-                class="cursor-pointer hover:text-neymar-orange transition-colors"
+                class="cursor-pointer hover:text-neymar-blue transition-colors underline-offset-4 hover:underline"
                 >{{ item.title }}</a
               >
             </li>
@@ -71,7 +71,7 @@ import { RouterLink } from '@angular/router';
             ></app-svg-icon>
             <div class="flex flex-col">
               <span>{{ appInfo.contact.phoneStringPrimary }}</span>
-              <span class="text-gray-400 text-xs">{{ appInfo.contact.phoneStringSecondary }}</span>
+              <span class="text-gray-600 text-xs">{{ appInfo.contact.phoneStringSecondary }}</span>
             </div>
           </div>
           <div class="flex items-center gap-3">
@@ -91,7 +91,7 @@ import { RouterLink } from '@angular/router';
       <div class="max-w-80">
         <p class="text-lg text-gray-800">Horarios de atención</p>
         @for (schedule of appInfo.schedules; track schedule) {
-          <p class="mt-3 text-sm">{{ schedule }}</p>
+          <p class="mt-3 text-sm text-gray-700">{{ schedule }}</p>
         }
       </div>
     </div>
@@ -101,10 +101,13 @@ import { RouterLink } from '@angular/router';
         © {{ currentYear }} {{ appInfo.razonSocial }} — NIT {{ appInfo.nit }}. Todos los derechos
         reservados.
       </p>
-      <ul class="flex items-center gap-4">
+       <ul class="flex items-center gap-4">
         @for (item of appInfo.legalItems; track item.href) {
           <li>
-            <a [routerLink]="'/info/' + item.href" [attr.aria-label]="item.ariaLabel">{{
+            <a [routerLink]="'/info/' + item.href" 
+               [attr.aria-label]="item.ariaLabel"
+               class="hover:text-neymar-blue transition-colors underline-offset-4 hover:underline"
+            >{{
               item.title
             }}</a>
           </li>
