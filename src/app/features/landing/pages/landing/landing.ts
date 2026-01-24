@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { Hero } from './components/hero/hero';
-import { About } from './components/about/about';
-import { Products } from './components/products/products';
-import { Services } from './components/services/services';
-import { MapComponent } from './components/map/map';
-import { Faq } from './components/faq/faq';
-import { SeoService } from '../../core/services/seo.service';
-import { APP_SHARED_INFO } from '../../core/config/app-info';
+import { Hero } from '../../components/hero/hero';
+import { About } from '../../components/about/about';
+import { Products } from '../../components/products/products';
+import { Services } from '../../components/services/services';
+import { MapComponent } from '../../components/map/map';
+import { Faq } from '../../components/faq/faq';
+import { SeoService } from '../../../../core/services/seo.service';
+import { APP_SHARED_INFO } from '../../../../core/config/app-info';
 
 @Component({
   selector: 'app-landing',
