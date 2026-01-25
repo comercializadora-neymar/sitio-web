@@ -2,6 +2,8 @@ import { Product } from '../../../core/models/product.model';
 import { SeoConfig } from '../../../core/models/seo-config.model';
 import { Service } from '../../../core/models/service.model';
 
+import { environment } from '../../../../environments/environment';
+
 export const LANDING_PAGES_DATA = {
     hero: {
         title: 'DEL RÍO A TU MESA CON\nFRESCURA Y TRADICIÓN',
@@ -204,7 +206,7 @@ export const LANDING_PAGES_DATA = {
     } as SeoConfig,
     map: {
         embedUrl:
-            'https://www.google.com/maps/embed/v1/place?key=AIzaSyC9tqundLb_wxmk_Sa17prMXAHMoVHQKHE&q=Comercializadora+Neymar+-+Pesquera+y+Distribuci%C3%B3n',
+            `https://www.google.com/maps/embed/v1/place?key=${environment.googleMapsApiKey}&q=Comercializadora+Neymar+-+Pesquera+y+Distribuci%C3%B3n`,
     },
     faq: {
         title: 'Preguntas Frecuentes',
