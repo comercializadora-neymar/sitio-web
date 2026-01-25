@@ -2,7 +2,7 @@ import { Product } from '../../../core/models/product.model';
 import { SeoConfig } from '../../../core/models/seo-config.model';
 import { Service } from '../../../core/models/service.model';
 
-export const LANDING_PAGES_DATA: any = {
+export const LANDING_PAGES_DATA = {
     hero: {
         title: 'DEL RÍO A TU MESA CON\nFRESCURA Y TRADICIÓN',
         imageUrl: '/hero-image.webp',

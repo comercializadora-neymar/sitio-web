@@ -21,7 +21,7 @@ describe('About', () => {
     };
   });
 
-  let mockLandingFacade: any;
+  let mockLandingFacade: Partial<LandingFacade>;
 
   beforeEach(async () => {
     mockLandingFacade = {

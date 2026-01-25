@@ -2,7 +2,6 @@ import {
   AngularNodeAppEngine,
   createNodeRequestHandler,
   isMainModule,
-  writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import { CSP_NONCE } from '@angular/core';
 import express from 'express';

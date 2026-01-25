@@ -56,6 +56,7 @@ describe('Landing', () => {
     };
 
     // Mock IntersectionObserver
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).IntersectionObserver = class {
       observe = vi.fn();
       unobserve = vi.fn();

@@ -10,7 +10,6 @@ import { InfoFacade } from '../../data-access/info.facade';
 import { ViewportScroller } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SeoService } from '../../../../core/services/seo.service';
-import { SeoConfig } from '../../../../core/models/seo-config.model';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 
 @Component({
@@ -91,12 +90,7 @@ export class InfoDetailPage {
     effect(() => {
       const page = this.infoPage();
       if (page) {
-        const seoData: SeoConfig = {
-          title: page.title + ' | Comercializadora Neymar',
-          description: page.subtitle,
-          keywords: page.title.split(' ').join(', ')
-        };
-        this.seoService.updateSeo(seoData);
+        this.seoService.updateSeo(page.seo);
       }
     });
 
