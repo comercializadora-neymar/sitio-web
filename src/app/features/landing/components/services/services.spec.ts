@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Services } from './services';
+import { LandingFacade } from '../../data-access/landing.facade';
+import { signal } from '@angular/core';
+import { LANDING_PAGES_DATA } from '../../data-access/landing.data';
 
 describe('Services', () => {
   let component: Services;
@@ -9,17 +12,24 @@ describe('Services', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).IntersectionObserver = class {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      observe() {}
+      observe() { }
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      unobserve() {}
+      unobserve() { }
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      disconnect() {}
+      disconnect() { }
     };
   });
 
   beforeEach(async () => {
+    const mockLandingFacade = {
+      services: signal(LANDING_PAGES_DATA.services)
+    };
+
     await TestBed.configureTestingModule({
       imports: [Services],
+      providers: [
+        { provide: LandingFacade, useValue: mockLandingFacade }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Services);
@@ -37,7 +47,7 @@ describe('Services', () => {
     expect(compiled.querySelector('section')).toBeTruthy();
   });
 
-  it('should render title from app-info', () => {
+  it('should render title from landing.data', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.textContent).toContain('Nuestros Servicios');
@@ -47,11 +57,11 @@ describe('Services', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const serviceCards = compiled.querySelectorAll('.flex.flex-col.text-center');
-    expect(serviceCards.length).toBe(component.servicesData.items.length);
+    expect(serviceCards.length).toBe(component.servicesData().items.length);
   });
 
-  it('should use data from app-info', () => {
-    expect(component.servicesData).toBeTruthy();
-    expect(component.servicesData.items.length).toBeGreaterThan(0);
+  it('should use data from landing.data', () => {
+    expect(component.servicesData()).toBeTruthy();
+    expect(component.servicesData().items.length).toBeGreaterThan(0);
   });
 });

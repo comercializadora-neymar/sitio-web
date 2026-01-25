@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Products } from './products';
 import { WhatsappService } from '../../../../core/services/whatsapp.service';
+import { LandingFacade } from '../../data-access/landing.facade';
+import { signal, computed } from '@angular/core';
+import { LANDING_PAGES_DATA } from '../../data-access/landing.data';
 import { vi } from 'vitest';
 
 describe('Products', () => {
@@ -21,8 +24,16 @@ describe('Products', () => {
   });
 
   beforeEach(async () => {
+    const mockLandingFacade = {
+      products: signal(LANDING_PAGES_DATA.products),
+      productItems: computed(() => LANDING_PAGES_DATA.products.items)
+    };
+
     await TestBed.configureTestingModule({
       imports: [Products],
+      providers: [
+        { provide: LandingFacade, useValue: mockLandingFacade }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Products);

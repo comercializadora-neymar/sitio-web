@@ -77,7 +77,7 @@ describe('InfoDetailPage', () => {
     });
 
     it('should render the breadcrumb with correct title', () => {
-        const breadcrumbTitle = fixture.debugElement.query(By.css('span.text-neymar-orange')).nativeElement;
+        const breadcrumbTitle = fixture.debugElement.query(By.css('span.font-bold')).nativeElement;
         expect(breadcrumbTitle.textContent).toContain(testPage.title);
     });
 

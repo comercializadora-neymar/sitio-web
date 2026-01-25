@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { About } from './about';
+import { LandingFacade } from '../../data-access/landing.facade';
+import { signal } from '@angular/core';
+import { LANDING_PAGES_DATA } from '../../data-access/landing.data';
 
 describe('About', () => {
   let component: About;
@@ -10,17 +13,26 @@ describe('About', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).IntersectionObserver = class {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      observe() {}
+      observe() { }
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      unobserve() {}
+      unobserve() { }
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      disconnect() {}
+      disconnect() { }
     };
   });
 
+  let mockLandingFacade: any;
+
   beforeEach(async () => {
+    mockLandingFacade = {
+      about: signal(LANDING_PAGES_DATA.about)
+    };
+
     await TestBed.configureTestingModule({
       imports: [About],
+      providers: [
+        { provide: LandingFacade, useValue: mockLandingFacade }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(About);

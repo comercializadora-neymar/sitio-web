@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
-import { APP_SHARED_INFO } from '../../../../core/config/app-info';
 import { NavigationService } from '../../../../core/services/navigation.service';
 import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.directive';
+import { LandingFacade } from '../../data-access/landing.facade';
 
 @Component({
   selector: 'app-hero',
@@ -15,8 +15,8 @@ import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.dire
     >
       <div class="absolute inset-0 z-0">
         <img
-          [ngSrc]="heroData.imageUrl"
-          [alt]="heroData.imageAlt"
+          [ngSrc]="heroData().imageUrl"
+          [alt]="heroData().imageAlt"
           fill
           priority
           class="w-full h-full object-cover"
@@ -33,12 +33,12 @@ import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.dire
                      text-3xl sm:text-5xl md:text-6xl xl:text-7xl
                      max-h-[750px]:text-3xl max-h-[750px]:mb-4
                      mb-8"
-            [innerHTML]="heroData.title.replace(/\\n/g, '<br />')"
+            [innerHTML]="heroData().title.replace(/\\n/g, '<br />')"
           >
           </h1>
 
           <div class="flex flex-col sm:flex-row items-start gap-4">
-            @for (button of heroData.ctaButtons; track button.label) {
+            @for (button of heroData().ctaButtons; track button.label) {
               <button
                 appFadeInUp
                 [delay]="200 + ($index * 100)"
@@ -132,7 +132,8 @@ import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.dire
 })
 export class Hero {
   private readonly navigationService = inject(NavigationService);
-  readonly heroData = APP_SHARED_INFO.landing.hero;
+  private readonly landingFacade = inject(LandingFacade);
+  readonly heroData = this.landingFacade.hero;
 
   scrollToSection(href: string) {
     this.navigationService.scrollToSection(href);

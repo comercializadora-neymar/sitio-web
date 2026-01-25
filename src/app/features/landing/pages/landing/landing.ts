@@ -6,7 +6,8 @@ import { Services } from '../../components/services/services';
 import { MapComponent } from '../../components/map/map';
 import { Faq } from '../../components/faq/faq';
 import { SeoService } from '../../../../core/services/seo.service';
-import { APP_SHARED_INFO } from '../../../../core/config/app-info';
+import { LandingFacade } from '../../data-access/landing.facade';
+
 
 @Component({
   selector: 'app-landing',
@@ -30,10 +31,11 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
 })
 export class Landing implements OnInit {
   private seoService = inject(SeoService);
-  private readonly seoConfig = APP_SHARED_INFO.landing.seo;
+  private landingFacade = inject(LandingFacade);
+  private readonly seoConfig = this.landingFacade.seo;
 
   ngOnInit(): void {
-    this.seoService.updateSeo(this.seoConfig);
+    this.seoService.updateSeo(this.seoConfig());
   }
 }
 

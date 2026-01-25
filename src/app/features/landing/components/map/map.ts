@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, computed } from '@angular/core';
 import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.directive';
-import { APP_SHARED_INFO } from '../../../../core/config/app-info';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LandingFacade } from '../../data-access/landing.facade';
 
 @Component({
   selector: 'app-map',
@@ -14,7 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       appFadeInUp
     >
       <iframe
-        [src]="safeMapUrl"
+        [src]="safeMapUrl()"
         title="Ubicación de Comercializadora Neymar"
         width="100%"
         height="100%"
@@ -29,6 +29,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class MapComponent {
   private sanitizer = inject(DomSanitizer);
-  readonly mapData = APP_SHARED_INFO.landing.map;
-  readonly safeMapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapData.embedUrl);
+  private landingFacade = inject(LandingFacade);
+  readonly mapData = this.landingFacade.map;
+  readonly safeMapUrl = computed(() => this.sanitizer.bypassSecurityTrustResourceUrl(this.mapData().embedUrl));
 }
