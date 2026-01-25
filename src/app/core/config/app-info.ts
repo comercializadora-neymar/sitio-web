@@ -281,7 +281,7 @@ export const APP_SHARED_INFO = {
     } as SeoConfig,
     map: {
       embedUrl:
-        'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d984.5171275644586!2d-74.7425233!3d9.2381708!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e5ec7eabc9796ef%3A0x31dc40808f9800da!2sComercializadora%20Neymar%20-%20Pesquera%20y%20Distribuci%C3%B3n!5e0!3m2!1ses-419!2sco!4v1769055010583!5m2!1ses-419!2sco',
+        'https://www.google.com/maps/embed/v1/place?key=AIzaSyC9tqundLb_wxmk_Sa17prMXAHMoVHQKHE&q=Comercializadora+Neymar+-+Pesquera+y+Distribuci%C3%B3n',
     },
     faq: {
       title: 'Preguntas Frecuentes',

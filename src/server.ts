@@ -4,8 +4,10 @@ import {
   isMainModule,
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
+import { CSP_NONCE } from '@angular/core';
 import express from 'express';
 import { join } from 'node:path';
+import crypto from 'node:crypto';
 import helmet from 'helmet';
 import compression from 'compression';
 
@@ -13,15 +15,24 @@ const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 
+/**
+ * Middleware to generate a unique nonce for each request.
+ */
+app.use((req, res, next) => {
+  res.locals['nonce'] = crypto.randomBytes(16).toString('base64');
+  next();
+});
+
 // Security Headers
-app.use(
+app.use((req, res, next) => {
+  const nonce = res.locals['nonce'] as string;
   helmet({
     contentSecurityPolicy: {
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-        'script-src': ["'self'", "'unsafe-inline'", 'maps.googleapis.com', 'www.google.com'],
+        'script-src': ["'self'", 'maps.googleapis.com', 'www.google.com', `'nonce-${nonce}'`, "'unsafe-inline'"],
         'script-src-attr': ["'self'", "'unsafe-inline'"],
-        'style-src': ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
+        'style-src': ["'self'", 'fonts.googleapis.com', "'unsafe-inline'"],
         'style-src-attr': ["'self'", "'unsafe-inline'"],
         'img-src': ["'self'", 'data:', 'maps.gstatic.com', 'maps.googleapis.com', '*.google.com', 'inline:'],
         'font-src': ["'self'", 'fonts.gstatic.com', 'data:'],
@@ -30,8 +41,8 @@ app.use(
       },
     },
     crossOriginOpenerPolicy: { policy: 'same-origin' },
-  }),
-);
+  })(req, res, next);
+});
 
 // Compression
 app.use(compression());
@@ -65,9 +76,29 @@ app.use(
  * Handle all other requests by rendering the Angular application.
  */
 app.use((req, res, next) => {
+  const nonce = res.locals['nonce'] as string;
   angularApp
-    .handle(req)
-    .then((response) => (response ? writeResponseToNodeResponse(response, res) : next()))
+    .handle(req, {
+      providers: [{ provide: CSP_NONCE, useValue: nonce }],
+    })
+    .then(async (response) => {
+      if (!response) {
+        return next();
+      }
+
+      // Intercept the response to inject the nonce into scripts that Angular might have missed
+      // (e.g., event dispatch contract scripts from withEventReplay)
+      const html = await response.text();
+      const updatedHtml = html
+        .replace(
+          /<script(\s+type="text\/javascript")?\s+id="ng-event-dispatch-contract">/g,
+          `<script$1 id="ng-event-dispatch-contract" nonce="${nonce}">`,
+        )
+        .replace(/<script>(window\.__jsaction_bootstrap)/g, `<script nonce="${nonce}">$1`);
+
+      res.set('Content-Type', 'text/html');
+      res.send(updatedHtml);
+    })
     .catch(next);
 });
 
