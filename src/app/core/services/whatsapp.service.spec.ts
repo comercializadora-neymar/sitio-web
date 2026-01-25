@@ -16,7 +16,7 @@ describe('WhatsappService', () => {
 
     it('should generate a link without product name', () => {
         const link = service.getLink();
-        expect(link).toContain(`wa.me/${APP_SHARED_INFO.whatsapp.phoneNumber}`);
+        expect(link).toContain(`wa.me/${APP_SHARED_INFO.contact.phonePrimary}`);
         expect(link).toContain('text=Hola,%20quisiera%20información');
     });
 

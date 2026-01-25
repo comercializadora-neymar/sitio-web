@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.directive';
-import { APP_SHARED_INFO } from '../../../../core/config/app-info';
+import { LandingFacade } from '../../data-access/landing.facade';
 
 @Component({
   selector: 'app-about',
@@ -16,14 +16,14 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
           class="text-3xl md:text-4xl font-bold text-gray-900 text-center mx-auto"
           appFadeInUp
         >
-          {{ aboutData.title }}
+          {{ aboutData().title }}
         </h2>
         <p
           class="text-lg text-gray-600 text-center mt-2 max-w-md mx-auto"
           appFadeInUp
           [delay]="100"
         >
-          {{ aboutData.description }}
+          {{ aboutData().description }}
         </p>
         <div
           class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-8 px-4 md:px-0 py-10 relative"
@@ -32,8 +32,8 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
             class="size-[520px] rounded-full absolute blur-[300px] -z-10 bg-[#FBFFE1] left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
           ></div>
           <img
-            [ngSrc]="aboutData.imageUrl"
-            [alt]="aboutData.imageAlt"
+            [ngSrc]="aboutData().imageUrl"
+            [alt]="aboutData().imageAlt"
             width="830"
             height="844"
             priority
@@ -42,13 +42,13 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
             [delay]="200"
           />
           <div class="flex-1" appFadeInUp [delay]="300">
-            <h3 class="text-2xl font-semibold">{{ aboutData.commitmentsTitle }}</h3>
+            <h3 class="text-2xl font-semibold">{{ aboutData().commitmentsTitle }}</h3>
             <p class="text-sm text-slate-500 mt-2">
-              {{ aboutData.commitmentsDescription }}
+              {{ aboutData().commitmentsDescription }}
             </p>
 
             <div class="flex flex-col gap-6 mt-6">
-              @for (commitment of aboutData.commitments; track commitment.title; let i = $index) {
+              @for (commitment of aboutData().commitments; track commitment.title; let i = $index) {
                 <div class="flex items-center gap-4" appFadeInUp [delay]="400 + i * 100">
                   <div class="size-10 p-2 bg-indigo-50 border border-indigo-200 rounded shrink-0">
                     <app-svg-icon
@@ -73,5 +73,6 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
   `,
 })
 export class About {
-  readonly aboutData = APP_SHARED_INFO.landing.about;
+  private readonly landingFacade = inject(LandingFacade);
+  readonly aboutData = this.landingFacade.about;
 }

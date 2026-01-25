@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.directive';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
-import { APP_SHARED_INFO } from '../../../../core/config/app-info';
+import { LandingFacade } from '../../data-access/landing.facade';
 
 @Component({
   selector: 'app-services',
@@ -15,18 +15,18 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
           class="text-3xl md:text-4xl font-bold text-gray-900 text-center mx-auto"
           appFadeInUp
         >
-          {{ servicesData.title }}
+          {{ servicesData().title }}
         </h2>
         <p
           class="text-lg text-gray-600 text-center mt-4 max-w-2xl mx-auto"
           appFadeInUp
           [delay]="100"
         >
-          {{ servicesData.description }}
+          {{ servicesData().description }}
         </p>
 
         <div class="flex items-stretch justify-center flex-wrap gap-8 mt-16 px-4 md:px-0">
-          @for (service of servicesData.items; track service.title; let i = $index) {
+          @for (service of servicesData().items; track service.title; let i = $index) {
             <div
               class="flex flex-col text-center items-center rounded-2xl p-8 border bg-white shadow-xl hover:-translate-y-1 transition-transform duration-300 gap-6 max-w-sm w-full"
               [class]="service.theme.containerBorder + ' ' + service.theme.containerShadow"
@@ -58,5 +58,6 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
   `,
 })
 export class Services {
-  readonly servicesData = APP_SHARED_INFO.landing.services;
+  private readonly landingFacade = inject(LandingFacade);
+  readonly servicesData = this.landingFacade.services;
 }

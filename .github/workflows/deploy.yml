@@ -24,6 +24,30 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
 
+      - name: Create dummy environment files
+        run: |
+          mkdir -p src/environments
+          cat <<EOF > src/environments/environment.model.ts
+          export interface Environment {
+            production: boolean;
+            googleMapsApiKey: string;
+          }
+          EOF
+          cat <<EOF > src/environments/environment.ts
+          import { Environment } from './environment.model';
+          export const environment: Environment = {
+            production: false,
+            googleMapsApiKey: 'DUMMY_KEY'
+          };
+          EOF
+          cat <<EOF > src/environments/environment.prod.ts
+          import { Environment } from './environment.model';
+          export const environment: Environment = {
+            production: true,
+            googleMapsApiKey: 'DUMMY_KEY'
+          };
+          EOF
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -51,6 +75,30 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
+
+      - name: Create dummy environment files
+        run: |
+          mkdir -p src/environments
+          cat <<EOF > src/environments/environment.model.ts
+          export interface Environment {
+            production: boolean;
+            googleMapsApiKey: string;
+          }
+          EOF
+          cat <<EOF > src/environments/environment.ts
+          import { Environment } from './environment.model';
+          export const environment: Environment = {
+            production: false,
+            googleMapsApiKey: 'DUMMY_KEY'
+          };
+          EOF
+          cat <<EOF > src/environments/environment.prod.ts
+          import { Environment } from './environment.model';
+          export const environment: Environment = {
+            production: true,
+            googleMapsApiKey: '${{ secrets.GOOGLE_MAPS_API_KEY }}'
+          };
+          EOF
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile

@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapComponent } from './map';
+import { LandingFacade } from '../../data-access/landing.facade';
+import { signal } from '@angular/core';
+import { LANDING_PAGES_DATA } from '../../data-access/landing.data';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -9,17 +12,24 @@ describe('MapComponent', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).IntersectionObserver = class {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      observe() {}
+      observe() { }
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      unobserve() {}
+      unobserve() { }
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      disconnect() {}
+      disconnect() { }
     };
   });
 
   beforeEach(async () => {
+    const mockLandingFacade = {
+      map: signal(LANDING_PAGES_DATA.map)
+    };
+
     await TestBed.configureTestingModule({
       imports: [MapComponent],
+      providers: [
+        { provide: LandingFacade, useValue: mockLandingFacade }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(MapComponent);
@@ -42,8 +52,8 @@ describe('MapComponent', () => {
     expect(component.safeMapUrl).toBeTruthy();
   });
 
-  it('should use data from app-info', () => {
-    expect(component.mapData).toBeTruthy();
-    expect(component.mapData.embedUrl).toContain('google.com/maps');
+  it('should use data from landing.data', () => {
+    expect(component.mapData()).toBeTruthy();
+    expect(component.mapData().embedUrl).toContain('google.com/maps');
   });
 });

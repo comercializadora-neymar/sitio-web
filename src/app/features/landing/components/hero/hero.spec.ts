@@ -4,6 +4,9 @@ import { NavigationService } from '../../../../core/services/navigation.service'
 import { vi } from 'vitest';
 
 import { Hero } from './hero';
+import { LandingFacade } from '../../data-access/landing.facade';
+import { signal } from '@angular/core';
+import { LANDING_PAGES_DATA } from '../../data-access/landing.data';
 
 describe('Hero', () => {
   let component: Hero;
@@ -18,8 +21,15 @@ describe('Hero', () => {
   });
 
   beforeEach(async () => {
+    const mockLandingFacade = {
+      hero: signal(LANDING_PAGES_DATA.hero)
+    };
+
     await TestBed.configureTestingModule({
       imports: [Hero],
+      providers: [
+        { provide: LandingFacade, useValue: mockLandingFacade }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Hero);

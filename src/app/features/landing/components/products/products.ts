@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, signal, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.directive';
-import { APP_SHARED_INFO } from '../../../../core/config/app-info';
-import type { Product } from '../../../../core/models/product.model';
+import { Product } from '../../../../core/models/product.model';
 import { WhatsappService } from '../../../../core/services/whatsapp.service';
 import { FallbackImageDirective } from '../../../../shared/directives/fallback-image.directive';
+import { LandingFacade } from '../../data-access/landing.facade';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, FadeInUpDirective, FallbackImageDirective],
+  imports: [CommonModule, NgOptimizedImage, FadeInUpDirective, FallbackImageDirective],
   styles: [
     `
       .marquee-inner {
@@ -32,10 +32,10 @@ import { FallbackImageDirective } from '../../../../shared/directives/fallback-i
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" appFadeInUp>
-            {{ productsData.title }}
+            {{ productsData().title }}
           </h2>
           <p class="text-lg text-gray-600" appFadeInUp [delay]="100">
-            {{productsData.description}}
+            {{productsData().description}}
           </p>
         </div>
 
@@ -66,7 +66,7 @@ import { FallbackImageDirective } from '../../../../shared/directives/fallback-i
                   role="button"
                 >
                   <div
-                    class="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
+                    class="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d]"
                     [class.[transform:rotateY(180deg)]]="activeProductIndex() === $index"
                   >
                     <!-- Front Side -->
@@ -74,9 +74,11 @@ import { FallbackImageDirective } from '../../../../shared/directives/fallback-i
                       class="absolute w-full h-full [backface-visibility:hidden] rounded-xl overflow-hidden shadow-lg bg-white border border-gray-100"
                     >
                       <img
-                        [src]="product.image || productsData.defaultImage"
-                        [appFallbackImage]="productsData.defaultImage"
+                        [ngSrc]="product.image || productsData().defaultImage"
+                        [appFallbackImage]="productsData().defaultImage"
                         alt="{{ product.name }}"
+                        width="256"
+                        height="256"
                         class="w-full h-64 object-cover"
                       />
                       <div class="p-4 flex flex-col justify-between h-16 bg-white">
@@ -99,15 +101,17 @@ import { FallbackImageDirective } from '../../../../shared/directives/fallback-i
                       <div class="flex items-center gap-3 border-b border-gray-100 pb-3 mb-3">
                          <div class="size-10 rounded-full overflow-hidden border border-gray-200 shrink-0">
                              <img
-                              [src]="product.image || productsData.defaultImage"
-                              [appFallbackImage]="productsData.defaultImage"
+                              [ngSrc]="product.image || productsData().defaultImage"
+                              [appFallbackImage]="productsData().defaultImage"
                               alt="Miniatura de {{ product.name }}"
+                              width="40"
+                              height="40"
                               class="w-full h-full object-cover"
                              />
                          </div>
                          <div>
                              <h3 class="font-bold text-gray-800 text-sm">{{ product.name }}</h3>
-                             <p class="text-xs text-gray-500">Pescado de Río</p>
+                             <p class="text-xs text-gray-700">Pescado de Río</p>
                          </div>
                       </div>
 
@@ -117,11 +121,11 @@ import { FallbackImageDirective } from '../../../../shared/directives/fallback-i
                         
                         <div class="grid grid-cols-2 gap-2 text-xs mt-2">
                              <div class="bg-gray-50 p-2 rounded">
-                                 <span class="block text-gray-400 text-[10px] uppercase">Temporada</span>
+                                 <span class="block text-gray-600 text-[10px] uppercase">Temporada</span>
                                  <span class="font-medium text-gray-700">{{product.season}}</span>
                              </div>
                              <div class="bg-gray-50 p-2 rounded">
-                                 <span class="block text-gray-400 text-[10px] uppercase">Disponibilidad</span>
+                                 <span class="block text-gray-600 text-[10px] uppercase">Disponibilidad</span>
                                  <span class="font-medium text-gray-700">{{product.availability}}</span>
                              </div>
                         </div>
@@ -134,7 +138,7 @@ import { FallbackImageDirective } from '../../../../shared/directives/fallback-i
                             target="_blank"
                             aria-label="Comprar {{ product.name }} por WhatsApp"
                             (click)="$event.stopPropagation()"
-                            class="w-full block text-center bg-[#25D366] hover:bg-[#128C7E] text-white py-2 rounded-lg text-sm font-bold transition-colors"
+                            class="w-full block text-center bg-[#075E54] hover:bg-[#128C7E] text-white py-2 rounded-lg text-sm font-bold transition-colors"
                           >
                             Comprar por WhatsApp
                           </a>
@@ -155,9 +159,10 @@ import { FallbackImageDirective } from '../../../../shared/directives/fallback-i
 })
 export class Products {
   private readonly whatsappService = inject(WhatsappService);
-  readonly productsData = APP_SHARED_INFO.landing.products;
+  private readonly landingFacade = inject(LandingFacade);
+  readonly productsData = this.landingFacade.products;
 
-  products = signal<Product[]>(this.productsData.items);
+  products = signal<Product[]>(this.productsData().items);
 
   doubledProducts = computed(() => [...this.products(), ...this.products()]);
 

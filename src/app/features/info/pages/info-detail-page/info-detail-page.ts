@@ -10,7 +10,6 @@ import { InfoFacade } from '../../data-access/info.facade';
 import { ViewportScroller } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SeoService } from '../../../../core/services/seo.service';
-import { SeoConfig } from '../../../../core/models/seo-config.model';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 
 @Component({
@@ -22,21 +21,21 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
       <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <!-- Breadcrumb -->
         <nav
-          class="flex flex-wrap items-center space-x-2 text-sm text-gray-500 font-medium mb-8"
+          class="flex flex-wrap items-center space-x-2 text-sm text-gray-700 font-medium mb-8"
           aria-label="Breadcrumb"
         >
-          <a routerLink="/" class="hover:text-neymar-orange transition-colors" aria-label="Inicio">
+          <a routerLink="/" class="hover:text-neymar-blue transition-colors underline-offset-4 hover:underline" aria-label="Inicio">
             <app-svg-icon icon="home" size="28px" viewBox="home" class="flex" />
           </a>
 
-          <app-svg-icon icon="slash" size="18px" viewBox="slash" class="text-gray-300" />
+          <app-svg-icon icon="slash" size="18px" viewBox="slash" class="text-gray-500" />
 
           <span class="cursor-default">Información</span>
 
-          <app-svg-icon icon="slash" size="18px" viewBox="slash" class="text-gray-300" />
+          <app-svg-icon icon="slash" size="18px" viewBox="slash" class="text-gray-500" />
 
           @if (infoPage()) {
-            <span class="text-neymar-orange font-semibold">{{ infoPage()?.title }}</span>
+            <span class="text-[#b45309] font-bold">{{ infoPage()?.title }}</span>
           } @else {
             <div class="h-4 w-24 bg-gray-200 animate-pulse rounded"></div>
           }
@@ -59,7 +58,7 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
             ></div>
           </article>
         } @else {
-          <p class="text-center text-gray-500">Cargando Información...</p>
+          <p class="text-center text-gray-700">Cargando Información...</p>
         }
       </div>
     </div>
@@ -91,12 +90,7 @@ export class InfoDetailPage {
     effect(() => {
       const page = this.infoPage();
       if (page) {
-        const seoData: SeoConfig = {
-          title: page.title + ' | Comercializadora Neymar',
-          description: page.subtitle,
-          keywords: page.title.split(' ').join(', ')
-        };
-        this.seoService.updateSeo(seoData);
+        this.seoService.updateSeo(page.seo);
       }
     });
 

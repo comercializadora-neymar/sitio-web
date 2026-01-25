@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Faq } from './faq';
 import { By } from '@angular/platform-browser';
-import { APP_SHARED_INFO } from '../../../../core/config/app-info';
+import { LANDING_PAGES_DATA } from '../../data-access/landing.data';
+import { LandingFacade } from '../../data-access/landing.facade';
+import { signal } from '@angular/core';
 import { vi } from 'vitest';
 import { Component, input, Directive, Input } from '@angular/core';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
@@ -38,14 +40,21 @@ describe('Faq', () => {
       takeRecords: vi.fn(),
     }));
 
+    const mockLandingFacade = {
+      faq: signal(LANDING_PAGES_DATA.faq)
+    };
+
     await TestBed.configureTestingModule({
       imports: [Faq],
+      providers: [
+        { provide: LandingFacade, useValue: mockLandingFacade }
+      ]
     })
-    .overrideComponent(Faq, {
-      remove: { imports: [SvgIconComponent, FadeInUpDirective] },
-      add: { imports: [MockSvgIconComponent, MockFadeInUpDirective] }
-    })
-    .compileComponents();
+      .overrideComponent(Faq, {
+        remove: { imports: [SvgIconComponent, FadeInUpDirective] },
+        add: { imports: [MockSvgIconComponent, MockFadeInUpDirective] }
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(Faq);
     component = fixture.componentInstance;
@@ -59,19 +68,19 @@ describe('Faq', () => {
   it('should render title, subtitle and description', () => {
     const title = fixture.debugElement.query(By.css('h2')).nativeElement;
     const subtitle = fixture.debugElement.query(By.css('p.font-medium')).nativeElement;
-    
-    expect(title.textContent).toContain(APP_SHARED_INFO.landing.faq.title);
-    expect(subtitle.textContent).toContain(APP_SHARED_INFO.landing.faq.subtitle);
+
+    expect(title.textContent).toContain(LANDING_PAGES_DATA.faq.title);
+    expect(subtitle.textContent).toContain(LANDING_PAGES_DATA.faq.subtitle);
   });
 
   it('should render all faq items', () => {
     const items = fixture.debugElement.queryAll(By.css('button'));
-    expect(items.length).toBe(APP_SHARED_INFO.landing.faq.items.length);
+    expect(items.length).toBe(LANDING_PAGES_DATA.faq.items.length);
   });
 
   it('should toggle faq item on click', () => {
     const firstButton = fixture.debugElement.queryAll(By.css('button'))[0];
-    
+
     // Initial state: closed (null)
     expect(component.openIndex()).toBeNull();
     expect(firstButton.nativeElement.getAttribute('aria-expanded')).toBe('false');

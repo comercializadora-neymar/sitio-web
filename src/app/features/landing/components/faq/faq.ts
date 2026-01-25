@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.directive';
-import { APP_SHARED_INFO } from '../../../../core/config/app-info';
+import { LandingFacade } from '../../data-access/landing.facade';
 
 @Component({
   selector: 'app-faq',
@@ -15,25 +15,25 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
         class="text-base font-medium text-slate-600"
         appFadeInUp
       >
-        {{ appInfo.landing.faq.subtitle }}
+        {{ appInfo().subtitle }}
       </p>
       <h2 
         class="text-3xl md:text-4xl font-semibold mt-2 text-slate-900"
         appFadeInUp
         [delay]="100"
       >
-        {{ appInfo.landing.faq.title }}
+        {{ appInfo().title }}
       </h2>
       <p 
-        class="text-sm text-slate-500 mt-4 max-w-sm"
+        class="text-sm text-slate-600 mt-4 max-w-sm"
         appFadeInUp
         [delay]="200"
       >
-        {{ appInfo.landing.faq.description }}
+        {{ appInfo().description }}
       </p>
 
       <div class="max-w-xl w-full mt-10 flex flex-col gap-4 items-start text-left">
-        @for (item of appInfo.landing.faq.items; track $index) {
+        @for (item of appInfo().items; track $index) {
           <div 
             class="flex flex-col items-start w-full group"
             appFadeInUp
@@ -78,7 +78,8 @@ import { APP_SHARED_INFO } from '../../../../core/config/app-info';
   ],
 })
 export class Faq {
-  readonly appInfo = APP_SHARED_INFO;
+  private readonly landingFacade = inject(LandingFacade);
+  readonly appInfo = this.landingFacade.faq;
   readonly openIndex = signal<number | null>(null);
 
   toggle(index: number) {
