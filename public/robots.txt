@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+Disallow: /*.js.map
+Disallow: /*.css.map
+Disallow: /3rdpartylicenses.txt
+
 Sitemap: https://comercializadora-neymar.com/sitemap.xml

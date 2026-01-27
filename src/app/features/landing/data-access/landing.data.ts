@@ -65,7 +65,7 @@ export const LANDING_PAGES_DATA = {
                 weight: 'Menos de 0.5 kg',
                 season: 'Todo el año',
                 price: 100,
-                availability: 'Baja',
+                availability: 'En Stock',
             },
             {
                 name: 'Bocachico',
@@ -74,7 +74,7 @@ export const LANDING_PAGES_DATA = {
                 weight: 'Menos de 0.5 kg',
                 season: 'Todo el año',
                 price: 200,
-                availability: 'Baja',
+                availability: 'En Stock',
             },
             {
                 name: 'Mojarra',
@@ -83,7 +83,7 @@ export const LANDING_PAGES_DATA = {
                 weight: 'Menos de 0.5 kg',
                 season: 'Todo el año',
                 price: 300,
-                availability: 'Baja',
+                availability: 'En Stock',
             },
             {
                 name: 'Capaz',
@@ -92,7 +92,7 @@ export const LANDING_PAGES_DATA = {
                 weight: 'Menos de 0.5 kg',
                 season: 'Todo el año',
                 price: 150,
-                availability: 'Media',
+                availability: 'En Stock',
             },
             {
                 name: 'Sabaleta',
@@ -101,7 +101,7 @@ export const LANDING_PAGES_DATA = {
                 weight: 'Menos de 0.5 kg',
                 season: 'Todo el año',
                 price: 120,
-                availability: 'Alta',
+                availability: 'En Stock',
             },
             {
                 name: 'Blanquillo',
