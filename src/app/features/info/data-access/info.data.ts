@@ -25,10 +25,16 @@ export const INFO_PAGES_DATA: InfoPage[] = [
     `,
     seo: {
       title: 'Políticas de Privacidad',
-      description:
-        'Políticas de Privacidad de la Comercializadora Neymar.',
-      keywords:
-        'Políticas de Privacidad, Comercializadora Neymar, pesquera, distribución, distribuidora, pescado fresco, pescado de río, magdalena, magangué, venta de pescado, bagre, bocachico, mojarra, comercializadora de pescado',
+      description: 'Políticas de Privacidad de la Comercializadora Neymar.',
+      keywords: 'Políticas de Privacidad, Comercializadora Neymar, pescado fresco, Magangué',
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Políticas de Privacidad - Comercializadora Neymar",
+        "description": "Información sobre el tratamiento de datos personales en Comercializadora Neymar.",
+        "breadcrumb": "Inicio > Información > Políticas de Privacidad",
+        "specialty": "PrivacyPolicy"
+      }
     },
   },
   {
@@ -59,10 +65,14 @@ export const INFO_PAGES_DATA: InfoPage[] = [
     `,
     seo: {
       title: 'Términos y Condiciones',
-      description:
-        'Términos y Condiciones de la Comercializadora Neymar.',
-      keywords:
-        'Términos y Condiciones, Comercializadora Neymar, pesquera, distribución, distribuidora, pescado fresco, pescado de río, magdalena, magangué, venta de pescado, bagre, bocachico, mojarra, comercializadora de pescado',
+      description: 'Términos y Condiciones de la Comercializadora Neymar.',
+      keywords: 'Términos y Condiciones, Comercializadora Neymar, logística, ventas Magangué',
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Términos y Condiciones - Comercializadora Neymar",
+        "description": "Reglas y condiciones comerciales para la compra y logística de productos pesqueros."
+      }
     },
   },
   {
@@ -85,10 +95,14 @@ export const INFO_PAGES_DATA: InfoPage[] = [
     `,
     seo: {
       title: 'Aviso Legal',
-      description:
-        'Información institucional y legal de la empresa Comercializadora Neymar.',
-      keywords:
-        'aviso legal, comercializadora neymar, pesquera, distribución, distribuidora, pescado fresco, pescado de río, magdalena, magangué, venta de pescado, bagre, bocachico, mojarra, comercializadora de pescado',
+      description: 'Información institucional y legal de la empresa Comercializadora Neymar.',
+      keywords: 'aviso legal, comercializadora neymar, NIT, razón social',
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Aviso Legal - Comercializadora Neymar",
+        "description": "Identificación legal y propiedad intelectual de Comercializadora Neymar."
+      }
     },
   },
 ];

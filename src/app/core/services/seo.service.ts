@@ -2,6 +2,7 @@ import { inject, Injectable, signal, PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { SeoConfig } from '../models/seo-config.model';
+import { Product } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,8 @@ export class SeoService {
     description:
       'Del Magdalena a tu mesa. 🐟 Lo mejor del pescado de Magangué con el sello de Comercializadora NEYMAR. ¡Fresco, sostenible y tradicional!',
     url: 'https://comercializadora-neymar.com',
-    logo: 'https://res.cloudinary.com/dsd1komi4/image/upload/v1756509770/logo.jpg',
-    image: 'https://res.cloudinary.com/dsd1komi4/image/upload/v1756509770/logo.jpg',
+    logo: 'https://comercializadora-neymar.com/public/logo-raw.webp',
+    image: 'https://comercializadora-neymar.com/public/logo-raw.webp',
     email: 'contacto@comercializadora-neymar.com',
     telephone: '+57 314 8058632',
     address: {
@@ -76,6 +77,15 @@ export class SeoService {
     },
     paymentAccepted: 'Cash, Credit Card',
     currenciesAccepted: 'COP',
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: '9.2421', // Coordenadas aproximadas de la zona de Yati/Magangué
+      longitude: '-74.7547'
+    },
+    areaServed: {
+      '@type': 'State',
+      name: 'Bolívar, Colombia'
+    },
   };
 
   /**
@@ -133,6 +143,10 @@ export class SeoService {
     // Structured Data (JSON-LD)
     if (schema) {
       this.addStructuredData(schema);
+    } else {
+      // Si la página NO tiene un schema específico (como las legales), 
+      // aplicamos el de la empresa para que Google no busque "products" donde no hay.
+      this.setCompanySchema();
     }
   }
 
@@ -184,5 +198,41 @@ export class SeoService {
    */
   setCompanySchema() {
     this.addStructuredData(this.companySchema);
+  }
+
+  /**
+   * Genera e inyecta el esquema JSON-LD para el catálogo de productos.
+   * Combina el esquema base de la empresa con una lista dinámica de ofertas de productos.
+   * @param products Lista de productos a incluir en el catálogo.
+   */
+  setProductsSchema(products: Product[]) {
+    const productSchemas = products.map(p => ({
+      '@type': 'Offer',
+      'itemOffered': {
+        '@type': 'Product',
+        'name': p.name,
+        'description': p.description,
+        'image': p.image || 'https://comercializadora-neymar.com/public/product-default.webp',
+        'offers': {
+          '@type': 'Offer',
+          'price': p.price,
+          'priceCurrency': 'COP',
+          'availability': p.availability === 'En Stock'
+            ? 'https://schema.org/InStock'
+            : 'https://schema.org/OutOfStock'
+        }
+      }
+    }));
+
+    const dynamicSchema = {
+      ...this.companySchema,
+      'hasOfferCatalog': {
+        '@type': 'OfferCatalog',
+        'name': 'Catálogo de Pescado Fresco',
+        'itemListElement': productSchemas
+      }
+    };
+
+    this.addStructuredData(dynamicSchema);
   }
 }

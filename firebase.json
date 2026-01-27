@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "comercializadora-neymar",
     "public": "dist/sitio-web/browser",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
@@ -10,20 +11,20 @@
     ],
     "headers": [
       {
-        "source": "**/*.@(js|css)",
+        "source": "**/*.@(js|css|webp|png|jpg|jpeg|gif|svg|ico)",
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "max-age=31536000"
+            "value": "public, max-age=31536000, immutable"
           }
         ]
       },
       {
-        "source": "**/*.@(png|jpg|jpeg|gif|svg|ico|webp)",
+        "source": "sitemap.xml",
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "max-age=31536000"
+            "value": "no-cache"
           }
         ]
       }

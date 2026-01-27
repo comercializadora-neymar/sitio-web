@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, signal, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, computed, inject, effect } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { FadeInUpDirective } from '../../../../shared/directives/fade-in-up.directive';
 import { Product } from '../../../../core/models/product.model';
 import { WhatsappService } from '../../../../core/services/whatsapp.service';
 import { FallbackImageDirective } from '../../../../shared/directives/fallback-image.directive';
 import { LandingFacade } from '../../data-access/landing.facade';
+import { SeoService } from '../../../../core/services/seo.service';
 
 @Component({
   selector: 'app-products',
@@ -160,6 +161,8 @@ import { LandingFacade } from '../../data-access/landing.facade';
 export class Products {
   private readonly whatsappService = inject(WhatsappService);
   private readonly landingFacade = inject(LandingFacade);
+  private readonly seoService = inject(SeoService);
+
   readonly productsData = this.landingFacade.products;
 
   products = signal<Product[]>(this.productsData().items);
@@ -169,6 +172,16 @@ export class Products {
   paused = signal(false);
   activeProductIndex = signal<number | null>(null);
   centerOffset = signal(0);
+
+  constructor() {
+    effect(() => {
+      // Sincronizar el esquema SEO de productos de forma reactiva
+      const items = this.productsData().items;
+      if (items.length > 0) {
+        this.seoService.setProductsSchema(items);
+      }
+    });
+  }
 
   pauseMarquee() {
     this.paused.set(true);
